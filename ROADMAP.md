@@ -8,9 +8,11 @@
 - [x] Establish `chatgpt` working / `public` release-candidate model.
 - [x] Review current edge repository rules and status.
 - [x] Record current platform baseline.
+- [x] Review current `azure-pipelines.yaml` files from all five `public` branches.
 - [ ] Inventory existing ADO environment.
 - [ ] Identify current GitHub → ADO triggers.
 - [ ] Identify current build/deploy/test boundaries.
+- [ ] Confirm current `branch2Push` value and ADO-to-GitHub mirroring behavior.
 
 ## Phase 1 — ADO Integration Mapping
 
