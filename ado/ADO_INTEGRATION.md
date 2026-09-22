@@ -4,9 +4,9 @@
 
 Azure DevOps remains the CI/CD and operational verification authority.
 
-The existing self-hosted agents and deployment environment should be reused rather than duplicated.
+The existing self-hosted agents, registry, scanning, and deployment environment should be reused where practical rather than duplicated.
 
-## Current Pipeline Baseline — Reviewed September 22, 2026
+## Existing Pipeline Baseline — Reviewed September 22, 2026
 
 The current `azure-pipelines.yaml` files were reviewed from the `public` branches of all five edge repositories:
 
@@ -18,66 +18,142 @@ The current `azure-pipelines.yaml` files were reviewed from the `public` branche
 
 All five currently use a two-job pattern: `BuildAndPush` followed by `Push`.
 
-`BuildAndPush` uses a self-hosted ARM or x86 agent, reads the `GitHub` variable group, builds Docker images for the local registry `docker.spoocannon.com:5000`, performs the current Trivy scanning steps, pushes images to the registry, and publishes metadata/files/scans as ADO build artifacts.
+`BuildAndPush` uses self-hosted ARM or x86 agents, reads the `GitHub` variable group, builds Docker images for the local registry `docker.spoocannon.com:5000`, performs the current Trivy scanning steps, pushes images to the registry, and publishes metadata/files/scans as ADO build artifacts.
 
-`Push` uses a self-hosted `Linux x86 64bit` agent, creates an orphan branch named by the hidden `branch2Push` pipeline variable, removes selected files, and force-pushes that branch to GitHub using an SSH key from secure pipeline configuration.
+`Push` uses a self-hosted `Linux x86 64bit` agent, creates an orphan branch named by `branch2Push`, removes selected files, and force-pushes that branch to GitHub using SSH authentication.
 
-Important findings:
+The current pipeline variables have been clarified:
 
-- The current YAML is **not yet a `chatgpt` → validate → `public` workflow**.
-- ADO currently contains an explicit GitHub force-push/mirroring step. The actual value of `branch2Push` must be verified in ADO.
-- The YAML has no explicit `chatgpt`/`public` branch logic. It treats `master` specially and all other source branch names as `develop` for image naming/versioning.
-- All five pipelines use `trigger: '*.*'`; effective trigger behavior must be verified against the ADO pipeline/repository configuration.
-- No YAML templates are referenced by these five files.
-- The `GitHub` variable group is used by all five pipelines; its secret values were not retrieved.
-- The YAML itself establishes build/package/publish and GitHub mirroring, but does not establish Pi deployment or runtime/integration verification.
-- Repository-specific differences include: `edge-controller` builds x86; `edge-time` uses Buildx for amd64/arm64; `edge-video` currently skips the non-master Trivy scan; `edge-gps` and `edge-audio` use the standard single-platform build/push pattern.
+- `branch2Push` = GitHub `public`.
+- `repoName` = corresponding GitHub repository name.
+- `gitCommit` = common commit message used when ADO updates `public`.
+- Git/SSH files and keys = authentication material allowing ADO to push to GitHub. Secret values are intentionally excluded from this documentation.
+- Agent pools = existing self-hosted PIs and Linux/x86 systems.
 
-These are inventory findings only; no pipeline behavior has been changed.
+The existing YAML is therefore sufficient to document the legacy build/mirroring mechanics. It is reference material, not a requirement for the replacement design.
 
-## Required Inventory
+## Replacement CI/CD Model
 
-Before changing pipelines, record:
+The target workflow is:
 
-- ADO organization/project;
-- repositories connected to each pipeline;
-- pipeline names/IDs;
-- YAML versus classic pipeline usage;
-- repository trigger configuration;
-- branch filters;
-- self-hosted agent pools;
-- agent capabilities;
-- Docker availability;
-- registry/service connections;
-- deployment targets;
-- test environments;
-- integration-test scripts;
-- current promotion/mirroring mechanism;
-- secrets/service connections involved.
+```
+GitHub chatgpt
+       |
+       | change trigger
+       v
+ADO validation/build
+       |
+       +--> source revision validation
+       +--> tests
+       +--> Docker build
+       +--> security scan
+       +--> identifiable image/artifacts
+       |
+       v
+deployment to test environment
+       |
+       v
+automated health/integration verification
+       |
+       v
+runtime verification evidence
+       |
+       v
+verified release candidate
+       |
+       v
+public promotion
+```
 
-## Desired Trigger
+The replacement pipeline should be designed so that a build is tied to the exact GitHub revision that triggered it. A successful build alone does not establish runtime verification.
 
-A change to the relevant GitHub development branch should initiate the appropriate ADO validation workflow.
+## Trigger
 
-The exact trigger mechanism must be taken from the existing environment or implemented deliberately after inventory. Do not assume a particular GitHub/ADO integration is already configured.
+A change to the GitHub `chatgpt` branch should initiate the applicable ADO validation workflow.
 
-## Desired Verification
+The implementation should use the existing GitHub/ADO integration if it satisfies this requirement; otherwise a new GitHub/ADO integration may be created.
+
+The trigger must:
+
+- identify the correct repository;
+- identify the intended development branch;
+- build the triggering revision;
+- avoid treating `public` as the normal development trigger;
+- provide an observable ADO run associated with the GitHub change.
+
+## Build
+
+Each service pipeline should retain only the service-specific behavior required by the service.
+
+The existing YAML establishes useful baseline requirements:
+
+- self-hosted Linux agents;
+- Docker build/push;
+- local registry `docker.spoocannon.com:5000`;
+- service-specific architecture requirements;
+- versioning from `ver.txt`;
+- Trivy scanning;
+- ADO artifacts.
+
+The replacement should preserve these requirements unless a deliberate improvement is documented.
+
+## Deployment
+
+Deployment should use the existing test environment where possible.
+
+A deployment must identify:
+
+- source revision;
+- image/artifact version;
+- target node/environment;
+- deployment result.
+
+Do not infer runtime success from a successful Docker build or registry push.
+
+## Verification
 
 For an affected repository:
 
 1. Source checkout.
 2. Static/unit tests as applicable.
 3. Container build.
-4. Artifact identification.
-5. Deployment to the test target.
-6. Health/functional verification.
-7. Cross-service verification when applicable.
-8. Failure/recovery verification when required.
-9. Preserve build/deployment evidence.
-10. Report result to the development workflow.
+4. Security scan.
+5. Artifact/image publication.
+6. Deployment to the appropriate test target.
+7. Health/functional verification.
+8. Cross-service verification when applicable.
+9. Failure/recovery verification when required.
+10. Preserve build/deployment/runtime evidence.
+11. Report the candidate as verified or failed.
+
+Verification must be appropriate to the service. For example, edge services that depend on local hardware or `edge-time` require runtime checks that cannot be established from source compilation alone.
 
 ## Promotion Gate
 
 Only verified state should become the `public` release-candidate baseline.
 
-ADO does not become the source of truth for source code; GitHub remains authoritative.
+The current automatic ADO orphan-branch/force-push behavior should not be carried forward automatically merely because it exists today.
+
+The replacement promotion mechanism should be a distinct release operation with an explicit relationship to the verified source revision.
+
+The exact mechanism—manual promotion, protected branch/PR, or another controlled ADO/GitHub operation—will be selected during implementation.
+
+## Security
+
+Do not place credentials, private keys, passwords, PATs, or secret variable values in this repository.
+
+The existing ADO GitHub authentication mechanism may be reused, replaced, or migrated without exposing its secret material.
+
+## Migration Rule
+
+Do not remove or modify the existing working pipelines until the replacement workflow has been implemented and verified.
+
+Migration should be:
+
+1. Define replacement pipeline.
+2. Implement.
+3. Test against a non-destructive change.
+4. Verify build/deployment/runtime behavior.
+5. Verify `chatgpt` → ADO triggering.
+6. Verify controlled `public` promotion.
+7. Only then retire or repurpose legacy mirroring behavior.
