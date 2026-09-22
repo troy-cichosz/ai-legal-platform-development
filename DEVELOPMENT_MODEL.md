@@ -27,19 +27,22 @@ The model must preserve human control over architectural decisions and operation
 6. Pull request / code review
         |
         v
-7. ADO CI/CD builds and tests
+7. GitHub change triggers ADO
         |
         v
-8. Deploy to the appropriate test environment
+8. ADO validates/builds/publishes
         |
         v
-9. Runtime / integration / failure-recovery verification
+9. Deploy to the appropriate test environment
         |
         v
-10. Documentation completion audit
+10. Runtime / integration / failure-recovery verification
         |
         v
-11. Verified state promoted to public
+11. Documentation completion audit
+        |
+        v
+12. Verified state becomes eligible for public promotion
 ```
 
 ## Responsibilities
@@ -73,20 +76,25 @@ The coding agent does not decide platform architecture independently.
 
 ### Azure DevOps
 
+- Detect applicable GitHub development changes.
 - Build affected repositories.
 - Run project-standard automated tests.
 - Build container images/artifacts.
+- Publish identifiable build outputs.
 - Deploy to existing test/integration targets.
-- Execute deployment/runtime verification.
+- Execute automated deployment/runtime verification.
 - Preserve build/deployment evidence.
-- Provide the operational gate before known-good state is promoted.
+- Provide the operational verification gate before a candidate is eligible for `public`.
+
+ADO does not become the source of truth for source code.
 
 ### Human Operator
 
 - Controls ADO integration and operational environment.
 - Performs or authorizes deployment actions not safely automated.
 - Confirms runtime results.
-- Confirms substantive architectural or implementation changes before commitment where required by existing repository rules.
+- Confirms substantive architectural or implementation changes where required by existing repository rules.
+- Controls or authorizes final promotion to `public` unless a later explicitly approved policy delegates that action.
 
 ## Verification States
 
@@ -118,6 +126,22 @@ Each issue should identify:
 - documentation impact.
 
 Avoid broad refactoring during a focused increment unless the issue explicitly establishes that scope.
+
+## CI/CD Design Principles
+
+The replacement ADO workflow should:
+
+1. Start from GitHub development state, normally `chatgpt`.
+2. Build the exact source revision that triggered the run.
+3. Produce identifiable artifacts and container images.
+4. Reuse the existing self-hosted PIs and Linux/x86 infrastructure where appropriate.
+5. Reuse the existing local Docker registry and security scanning where practical.
+6. Deploy only the candidate artifact that was built and identified by the run.
+7. Perform automated verification appropriate to the affected service.
+8. Preserve enough build/deployment information to correlate runtime results with the source revision.
+9. Make promotion to `public` a distinct release action rather than an incidental side effect of every build.
+
+The existing `azure-pipelines.yaml` files are reference implementations for service-specific build requirements. They are not architectural constraints on the replacement pipeline design.
 
 ## Documentation
 
