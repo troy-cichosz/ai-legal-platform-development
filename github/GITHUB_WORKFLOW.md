@@ -4,7 +4,7 @@
 
 ```
 chatgpt = primary working branch
-public  = release candidate / last-known-good ADO-mirrored state
+public  = release candidate / last-known-good release state
 ```
 
 ## Issue → Implementation
@@ -37,21 +37,38 @@ PRs should identify:
 
 PR approval is not a substitute for runtime verification.
 
+## ADO Trigger
+
+The replacement CI/CD model should use a GitHub-driven trigger for applicable development changes.
+
+The intended path is:
+
+```
+GitHub chatgpt change
+        |
+        v
+Azure DevOps validation/build
+```
+
+The exact ADO/GitHub integration mechanism will be selected during ADO pipeline implementation. It must trigger against the intended development branch and build the revision that caused the run.
+
 ## Promotion
 
 Normal promotion is:
 
 ```
 chatgpt
-  -> PR/review
-  -> ADO build/test
+  -> ADO validation/build
   -> deployment
   -> runtime verification
   -> documentation audit
+  -> verified release candidate
   -> public
 ```
 
-The exact promotion mechanism is to be defined after the ADO inventory.
+`public` must not be treated as a normal development branch.
+
+The existing ADO force-push mechanism is legacy implementation behavior. It may be replaced when the new workflow is implemented and verified.
 
 ## Repository-Specific Rules
 
