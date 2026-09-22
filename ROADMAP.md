@@ -9,20 +9,27 @@
 - [x] Review current edge repository rules and status.
 - [x] Record current platform baseline.
 - [x] Review current `azure-pipelines.yaml` files from all five `public` branches.
-- [ ] Inventory existing ADO environment.
-- [ ] Identify current GitHub → ADO triggers.
-- [ ] Identify current build/deploy/test boundaries.
-- [ ] Confirm current `branch2Push` value and ADO-to-GitHub mirroring behavior.
+- [x] Establish current `branch2Push` = `public` behavior.
+- [x] Establish current `repoName` and `gitCommit` semantics.
+- [x] Establish existing ADO self-hosted agent-pool scope.
+- [x] Establish existing ADO → GitHub authentication purpose without retrieving secrets.
+- [x] Decide that existing pipeline YAML is reference material rather than a required replacement design.
+- [ ] Define replacement GitHub `chatgpt` → ADO trigger model.
+- [ ] Define replacement validation/build/deployment pipeline contract.
+- [ ] Define automated runtime/integration verification contract.
+- [ ] Define exact `chatgpt` → `public` promotion gate.
 
 ## Phase 1 — ADO Integration Mapping
 
 - [ ] Document ADO projects.
-- [ ] Document pipelines and repositories.
+- [ ] Document replacement pipeline names and repository mappings.
 - [ ] Document self-hosted agent pools/capabilities.
-- [ ] Document service connections and deployment targets.
+- [ ] Document reusable service connections and registry access.
+- [ ] Document deployment targets.
 - [ ] Document environment/test topology.
-- [ ] Define the minimum CI validation contract for PRs targeting `chatgpt`.
+- [ ] Define the minimum CI validation contract for changes on `chatgpt`.
 - [ ] Define promotion verification required before `public`.
+- [ ] Build and validate the first replacement pipeline.
 
 ## Phase 2 — GitHub Development Standard
 
@@ -42,7 +49,7 @@
 
 ## Phase 4 — GitHub → ADO Automation
 
-- [ ] Trigger ADO validation from GitHub changes using the existing integration where possible.
+- [ ] Trigger ADO validation from GitHub changes using the new integration.
 - [ ] Build affected repositories automatically.
 - [ ] Run automated tests.
 - [ ] Produce identifiable build artifacts/results.
@@ -61,8 +68,9 @@
 
 - [ ] Define exact `chatgpt` → `public` promotion mechanism.
 - [ ] Ensure only verified state reaches `public`.
-- [ ] Keep `public` synchronized with the ADO-mirrored known-good state.
+- [ ] Keep `public` synchronized with the verified known-good state.
 - [ ] Define rollback/recovery procedure.
+- [ ] Retire or repurpose legacy automatic force-push behavior after replacement verification.
 
 ## Phase 7 — Process Maturity
 
