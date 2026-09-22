@@ -17,7 +17,7 @@
 | Branch | Role |
 |---|---|
 | `chatgpt` | Primary working/development branch |
-| `public` | Release candidate / last-known-good ADO-mirrored state |
+| `public` | Release candidate / last-known-good release state |
 
 Changes should be developed on `chatgpt`. `public` is not a development workspace.
 
@@ -58,11 +58,40 @@ The current platform direction is common evidence-model alignment across `edge-v
 
 ## ADO Pipeline Baseline Reviewed
 
-The current `azure-pipelines.yaml` files in all five `public` branches have now been reviewed.
+The current `azure-pipelines.yaml` files in all five `public` branches have been reviewed.
 
-The common pattern is self-hosted build → Docker build/push → Trivy/ADO artifacts → separate x86 job that creates an orphan branch and force-pushes it to GitHub. The YAML therefore confirms that ADO currently participates in producing/updating the `public` branch.
+The existing pipelines use a common self-hosted build → Docker build/push → Trivy/ADO artifacts → GitHub mirroring pattern. The current `Push` job creates an orphan branch and force-pushes it to GitHub.
 
-The YAML does not reveal the effective ADO trigger configuration, pipeline/repository connection settings, hidden variable values such as `branch2Push`, agent capabilities, service connections, deployment targets, or runtime verification stages. Those remain the next inventory target.
+The existing ADO configuration has now clarified the previously unknown pipeline variables:
+
+- `branch2Push` is the GitHub `public` branch.
+- `repoName` identifies the corresponding GitHub repository.
+- `gitCommit` supplies the common commit message used when ADO updates `public`.
+- Git/SSH files, keys, and related variables provide ADO's authenticated ability to push to GitHub; secret values are not required for the process inventory.
+- Self-hosted ADO agent pools are the existing PIs and Linux/x86 systems.
+
+The existing YAML remains useful as implementation reference, but it does not need to constrain the replacement CI/CD design.
+
+## Target CI/CD Direction
+
+The development process will move toward a deliberate:
+
+`chatgpt` → ADO validation/build/deployment → runtime verification → `public`
+
+workflow.
+
+The intended behavior is:
+
+1. A commit or applicable change on `chatgpt` triggers ADO.
+2. ADO validates and builds the affected repository.
+3. ADO publishes identifiable artifacts/container images.
+4. ADO deploys to the appropriate test environment where applicable.
+5. ADO performs automated health/integration verification.
+6. Runtime results establish whether the candidate is actually verified.
+7. Only verified state is eligible for promotion to `public`.
+8. The promotion mechanism is deliberately designed rather than relying on the current automatic force-push behavior.
+
+Existing registry, Trivy, self-hosted agents, and deployment infrastructure should be reused where practical.
 
 ## Process Design State
 
@@ -70,9 +99,11 @@ Established:
 
 - GitHub source-of-truth model.
 - `chatgpt` working branch / `public` release-candidate model.
-- ADO remains CI/CD authority.
+- ADO remains CI/CD and operational verification authority.
 - Existing ADO self-hosted infrastructure should be reused.
-- Current ADO pipeline YAML baseline has been reviewed from all five public branches.
+- Current ADO pipeline YAML baseline reviewed from all five `public` branches.
+- Existing `branch2Push`, `repoName`, and `gitCommit` semantics established.
+- Existing GitHub authentication mechanism understood at a non-secret level.
 - Windows 11 workstation with RTX 3060 12 GB is the primary local development/agent host.
 - Local Ollama is an available candidate for free local inference.
 - Docker Desktop is not a prerequisite for the process.
@@ -80,20 +111,19 @@ Established:
 
 Not yet established:
 
-- Existing ADO project/pipeline/agent-pool inventory.
-- Actual value and use of `branch2Push`.
-- Exact GitHub → ADO trigger mechanism currently used by each pipeline.
-- Standard ADO pipeline template for agent-created PR validation.
+- Exact ADO pipeline definitions and GitHub service-hook/repository trigger configuration to use for the new workflow.
+- Standard ADO pipeline template for development validation.
+- Automated deployment/integration-test contract across the existing edge environment.
+- Exact `chatgpt` → `public` promotion mechanism.
 - Coding-agent selection and operating procedure.
 - Local Ollama model selection and resource policy.
-- Automated deployment/integration-test contract across the existing edge environment.
 - Repository-wide GitHub Issue/PR templates and labels for agent work.
 
 ## Current Blocker
 
-The source YAML inventory is complete enough to proceed to the ADO environment inventory, but the ADO environment itself still needs to be inspected before changing pipeline behavior.
+The existing YAML inventory is complete enough to stop treating the legacy pipelines as a design constraint. The next work is to define the replacement ADO workflow and its promotion gate before implementing new pipeline YAML.
 
-The next implementation work is to document the existing ADO projects, pipeline definitions, repository connections, self-hosted agent pools, service connections, deployment targets, effective triggers, variable-group usage, and verification steps.
+The existing pipelines should remain operational until the replacement workflow has been built and verified.
 
 ## Recovery Rule
 
