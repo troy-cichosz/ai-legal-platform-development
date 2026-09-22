@@ -3,7 +3,7 @@
 **Repository:** `ai-legal-platform-development`  
 **Current phase:** Phase 0 — Development Workflow Design  
 **Status:** IN PROGRESS  
-**Last reviewed:** September 2026
+**Last reviewed:** September 22, 2026
 
 ## Authoritative Sources
 
@@ -56,6 +56,14 @@ The reviewed `public` baseline shows:
 
 The current platform direction is common evidence-model alignment across `edge-video` and `edge-audio`.
 
+## ADO Pipeline Baseline Reviewed
+
+The current `azure-pipelines.yaml` files in all five `public` branches have now been reviewed.
+
+The common pattern is self-hosted build → Docker build/push → Trivy/ADO artifacts → separate x86 job that creates an orphan branch and force-pushes it to GitHub. The YAML therefore confirms that ADO currently participates in producing/updating the `public` branch.
+
+The YAML does not reveal the effective ADO trigger configuration, pipeline/repository connection settings, hidden variable values such as `branch2Push`, agent capabilities, service connections, deployment targets, or runtime verification stages. Those remain the next inventory target.
+
 ## Process Design State
 
 Established:
@@ -64,6 +72,7 @@ Established:
 - `chatgpt` working branch / `public` release-candidate model.
 - ADO remains CI/CD authority.
 - Existing ADO self-hosted infrastructure should be reused.
+- Current ADO pipeline YAML baseline has been reviewed from all five public branches.
 - Windows 11 workstation with RTX 3060 12 GB is the primary local development/agent host.
 - Local Ollama is an available candidate for free local inference.
 - Docker Desktop is not a prerequisite for the process.
@@ -72,6 +81,7 @@ Established:
 Not yet established:
 
 - Existing ADO project/pipeline/agent-pool inventory.
+- Actual value and use of `branch2Push`.
 - Exact GitHub → ADO trigger mechanism currently used by each pipeline.
 - Standard ADO pipeline template for agent-created PR validation.
 - Coding-agent selection and operating procedure.
@@ -81,9 +91,9 @@ Not yet established:
 
 ## Current Blocker
 
-ADO environment inventory is required before changing CI/CD behavior.
+The source YAML inventory is complete enough to proceed to the ADO environment inventory, but the ADO environment itself still needs to be inspected before changing pipeline behavior.
 
-The next implementation work is to document the existing ADO projects, pipelines, self-hosted agent pools, service connections, deployment targets, triggers, and verification steps.
+The next implementation work is to document the existing ADO projects, pipeline definitions, repository connections, self-hosted agent pools, service connections, deployment targets, effective triggers, variable-group usage, and verification steps.
 
 ## Recovery Rule
 
