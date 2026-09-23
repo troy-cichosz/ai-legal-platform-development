@@ -32,10 +32,11 @@ The model must preserve human control over architectural decisions and operation
 7. GitHub chatgpt push triggers edge-platform-automation
         |
         v
-8. Automation synchronizes source into matching ADO service/chatgpt
+8. Automation synchronizes source into matching ADO repository/chatgpt
         |
         v
-9. Existing ADO service CI/CD builds/publishes/deploys
+9. Build-service repositories enter existing ADO service CI/CD;
+   sync-only repositories enter their public-maintenance pipeline
         |
         v
 10. Runtime / integration / failure-recovery verification
@@ -100,22 +101,24 @@ The coding agent does not decide platform architecture independently.
 - Receive the GitHub `chatgpt` push webhook.
 - Validate the supported repository and development branch.
 - Retrieve the GitHub source.
-- Synchronize the source tree into the matching ADO service repository's `chatgpt` branch.
+- Synchronize the source tree into the matching ADO repository's `chatgpt` branch.
 - Remove stale ADO files absent from GitHub.
 - Create and push the ADO synchronization commit.
 - Preserve correlation between the GitHub revision and ADO synchronization.
 
-It does not build service images, deploy services directly, or modify GitHub `public`.
+For `build_service` repositories, the resulting ADO branch change enters the existing service CI/CD.
+
+For `sync_only` repositories, the resulting ADO branch change enters the repository's public-maintenance pipeline. That pipeline maintains the GitHub `public` branch using the established ADO-to-GitHub mechanism.
+
+The `edge-platform-automation` public update can generate another GitHub webhook event, but the synchronization pipeline accepts only `chatgpt` events. This is the explicit recursion boundary.
 
 ### Azure DevOps
 
-- Detect the synchronization commit on the ADO service `chatgpt` branch.
-- Run the existing service CI/CD pipeline.
-- Build container images/artifacts.
-- Run existing scans/tests.
-- Publish identifiable build outputs.
-- Deploy using existing service behavior.
-- Preserve build/deployment evidence.
+- Detect the synchronization commit on the ADO repository `chatgpt` branch.
+- Run the appropriate downstream pipeline.
+- For build services, build container images/artifacts, run existing scans/tests, publish identifiable outputs, and deploy using existing service behavior.
+- For sync-only repositories, run public-maintenance behavior without unnecessary Docker build/deployment.
+- Preserve build/deployment or maintenance evidence.
 
 ADO does not become the source of truth for source code.
 
@@ -162,16 +165,17 @@ Avoid broad refactoring during a focused increment unless the issue explicitly e
 
 The migration deliberately preserves the existing service CI/CD.
 
-1. GitHub service `chatgpt` is authoritative for source and history.
+1. GitHub `chatgpt` is authoritative for source and history.
 2. A GitHub `chatgpt` push triggers `edge-platform-automation`.
-3. Automation identifies the service and retrieves its GitHub source.
-4. Automation synchronizes that source tree into the matching ADO service `chatgpt` branch.
-5. The ADO branch change triggers the existing service CI/CD.
-6. Existing build, scan, registry, deployment, and release behavior remains in place.
-7. Runtime verification remains separate from successful build/deployment.
-8. ADO mirror history is not authoritative.
-9. `edge-platform-automation` does not directly modify GitHub `public`.
-10. The legacy automatic `public` behavior remains until a separate promotion design is implemented and verified.
+3. Automation identifies the repository and retrieves its exact GitHub source.
+4. Automation synchronizes that source tree into the matching ADO `chatgpt` branch.
+5. Build-service ADO branch changes trigger the existing service CI/CD.
+6. Sync-only ADO branch changes trigger their public-maintenance pipelines.
+7. Existing service build, scan, registry, deployment, and release behavior remains in place.
+8. Runtime verification remains separate from successful build/deployment.
+9. ADO mirror history is not authoritative.
+10. Only `chatgpt` events are accepted by the synchronization automation, providing the recursion boundary for `edge-platform-automation`.
+11. The long-term `chatgpt` → `public` promotion mechanism remains a separate process concern.
 
 ## Documentation
 
