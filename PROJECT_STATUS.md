@@ -2,7 +2,7 @@
 
 **Repository:** `ai-legal-platform-development`  
 **Current phase:** Phase 4 — GitHub → ADO Automation  
-**Status:** IN PROGRESS  
+**Status:** IN PROGRESS — Increment C core synchronization verified; targeted hardening verification remains  
 **Last reviewed:** September 23, 2026
 
 ## Authoritative Sources
@@ -17,9 +17,9 @@
 
 | Location | Branch | Role |
 |---|---|---|
-| GitHub service repositories | `chatgpt` | Authoritative working/development branch and history |
-| GitHub service repositories | `public` | Release candidate / last-known-good release state |
-| ADO service repositories | `chatgpt` | Operational build-triggering mirror |
+| GitHub project repositories | `chatgpt` | Authoritative working/development branch and history |
+| GitHub project repositories | `public` | Release candidate / last-known-good release state |
+| ADO project repositories | `chatgpt` | Operational build/synchronization mirror |
 
 Changes should be developed on `chatgpt`. `public` is not a development workspace.
 
@@ -59,7 +59,7 @@ The reviewed baseline shows:
 The approved automation architecture is:
 
 ```
-GitHub service/chatgpt
+GitHub repository/chatgpt
         |
         | push webhook
         v
@@ -67,21 +67,20 @@ edge-platform-automation
         |
         | identify repository/ref/SHA
         | retrieve exact GitHub source
-        | synchronize matching ADO service/chatgpt
+        | synchronize matching ADO repository/chatgpt
         | create ADO synchronization commit
         v
-ADO service/chatgpt
+ADO repository/chatgpt
         |
-        | existing branch-change trigger
-        v
-existing edge-<service> - CI/CD
+        +--> build_service: existing service CI/CD
         |
-        v
-build / scan / registry / deployment
+        +--> sync_only: public-maintenance pipeline
         |
         v
-runtime verification
+runtime / public maintenance
 ```
+
+GitHub `chatgpt` remains authoritative. ADO `chatgpt` branches are operational mirrors.
 
 ### Increment B — Pilot Result
 
@@ -98,26 +97,49 @@ The pilot demonstrated:
 - The ADO synchronization commit is pushed and its remote SHA is verified.
 - The existing `edge-gps - CI` triggers from the ADO branch change.
 - Existing service CI/CD remains unchanged.
-- GitHub `public` is not modified directly by `edge-platform-automation`.
-- The service's legacy ADO pipeline was restored to GitHub `chatgpt` during the pilot because complete-tree synchronization correctly removes files absent from the authoritative source.
+- The service's required pipeline definition must exist in authoritative GitHub source because complete-tree synchronization removes files absent from GitHub.
 
-The pilot proves the synchronization mechanism and the preserved existing-CI trigger path. It does not yet establish the full five-service automation contract.
+### Increment C — Expansion and Hardening
 
-## Current Automation Increment
+**GitHub Issue:** #3  
+**Status:** CORE SYNCHRONIZATION IMPLEMENTED AND END-TO-END RUNS VERIFIED
 
-**Increment C — Expand and harden GitHub → ADO synchronization**  
-**GitHub Issue:** #3
+The automation registry now covers all seven current project repositories:
 
-Scope:
+| Repository | Class | ADO mirror | Downstream behavior |
+|---|---|---|---|
+| `edge-controller` | `build_service` | `chatgpt` | Existing service CI/CD |
+| `edge-time` | `build_service` | `chatgpt` | Existing service CI/CD |
+| `edge-gps` | `build_service` | `chatgpt` | Existing service CI/CD |
+| `edge-video` | `build_service` | `chatgpt` | Existing service CI/CD |
+| `edge-audio` | `build_service` | `chatgpt` | Existing service CI/CD |
+| `ai-legal-platform-development` | `sync_only` | `chatgpt` | Public-maintenance pipeline |
+| `edge-platform-automation` | `sync_only` | `chatgpt` | Public-maintenance pipeline |
 
-- Expand from `edge-gps` to all five covered services.
-- Verify each service's existing CI trigger.
-- Verify complete-tree deletion propagation.
-- Verify idempotent synchronization.
-- Verify harmless no-op behavior for non-`chatgpt` pushes.
-- Preserve GitHub SHA → ADO synchronization SHA correlation.
-- Add preflight protection against missing required ADO service pipeline definitions.
-- Keep existing service CI/CD definitions unchanged.
+The implemented workflow now provides:
+
+- complete-tree synchronization;
+- exact GitHub SHA checkout and verification;
+- matching ADO `chatgpt` repository synchronization;
+- stale-file removal;
+- remote ADO SHA verification;
+- build-service preflight protection for required `azure-pipelines.yaml`;
+- repository classification so sync-only repositories do not enter service Docker CI/CD;
+- harmless non-`chatgpt` handling;
+- an explicit recursion boundary because only `chatgpt` webhook events are accepted by the automation pipeline;
+- existing service CI/CD definitions remain unchanged.
+
+The user has successfully updated the `chatgpt` branch in each covered GitHub repository and reported that the corresponding automation runs completed correctly. The GitHub `public` branches are also reported to reflect the resulting code state.
+
+The remaining Increment C verification items are targeted hardening checks whose results should be recorded explicitly:
+
+- complete-tree deletion propagation;
+- idempotent synchronization of unchanged source;
+- non-`chatgpt` webhook no-op behavior;
+- explicit `edge-platform-automation` recursion-boundary verification;
+- GitHub SHA → ADO synchronization SHA correlation across representative runs.
+
+These are implementation-supported and partially exercised by the successful runs, but should remain explicitly verified before closing Issue #3.
 
 ## Development-Agent / Local-AI State
 
@@ -138,7 +160,7 @@ Still to establish:
 - agent permissions and safety boundaries;
 - standard issue/PR templates and labels;
 - automated runtime/integration verification;
-- exact controlled `chatgpt` → `public` promotion mechanism.
+- exact long-term controlled `chatgpt` → `public` promotion mechanism.
 
 ## Recovery Rule
 
@@ -153,35 +175,3 @@ At the beginning of a new development increment:
 7. Update this control plane when the process state materially changes.
 
 This file is the primary recovery point for this development-process effort.
-
-
-## Repository Coverage Decision
-
-Increment C is intentionally broader than the five runtime edge services.
-
-The automation target is **all project GitHub repositories**, with repository behavior determined by repository class:
-
-| Repository | Class | ADO mirror | Downstream behavior |
-|---|---|---|---|
-| `edge-controller` | build_service | `chatgpt` | Existing service CI/CD |
-| `edge-time` | build_service | `chatgpt` | Existing service CI/CD |
-| `edge-gps` | build_service | `chatgpt` | Existing service CI/CD |
-| `edge-video` | build_service | `chatgpt` | Existing service CI/CD |
-| `edge-audio` | build_service | `chatgpt` | Existing service CI/CD |
-| `ai-legal-platform-development` | sync_only | `chatgpt` | Synchronization/public maintenance only |
-| `edge-platform-automation` | sync_only | `chatgpt` | Synchronization/public maintenance only |
-
-This means an ADO mirror is required even when a repository has no Docker build/deployment requirement.
-
-For the two sync-only repositories, the next design must explicitly prevent recursive automation. In particular, synchronizing `edge-platform-automation` into its own ADO mirror must not cause an uncontrolled automation loop.
-
-The automation configuration should therefore evolve from a service-only list into a repository registry containing at least:
-
-- GitHub repository;
-- ADO repository;
-- development branch;
-- repository class;
-- downstream pipeline behavior;
-- whether public maintenance is required.
-
-This is a design/implementation requirement for Increment C, not yet a claim that all seven repositories are synchronized today.
