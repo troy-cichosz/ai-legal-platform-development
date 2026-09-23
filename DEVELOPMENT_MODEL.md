@@ -27,13 +27,13 @@ The model must preserve human control over architectural decisions and operation
 6. Pull request / code review
         |
         v
-7. GitHub change triggers ADO
+7. GitHub chatgpt push triggers edge-platform-automation
         |
         v
-8. ADO validates/builds/publishes
+8. Automation synchronizes source into matching ADO service/chatgpt
         |
         v
-9. Deploy to the appropriate test environment
+9. Existing ADO service CI/CD builds/publishes/deploys
         |
         v
 10. Runtime / integration / failure-recovery verification
@@ -74,17 +74,27 @@ ChatGPT should not invent current implementation state when GitHub or runtime ev
 
 The coding agent does not decide platform architecture independently.
 
+### edge-platform-automation
+
+- Receive the GitHub `chatgpt` push webhook.
+- Validate the supported repository and development branch.
+- Retrieve the GitHub source.
+- Synchronize the source tree into the matching ADO service repository's `chatgpt` branch.
+- Remove stale ADO files absent from GitHub.
+- Create and push the ADO synchronization commit.
+- Preserve correlation between the GitHub revision and ADO synchronization.
+
+It does not build service images, deploy services directly, or modify GitHub `public`.
+
 ### Azure DevOps
 
-- Detect applicable GitHub development changes.
-- Build affected repositories.
-- Run project-standard automated tests.
+- Detect the synchronization commit on the ADO service `chatgpt` branch.
+- Run the existing service CI/CD pipeline.
 - Build container images/artifacts.
+- Run existing scans/tests.
 - Publish identifiable build outputs.
-- Deploy to existing test/integration targets.
-- Execute automated deployment/runtime verification.
+- Deploy using existing service behavior.
 - Preserve build/deployment evidence.
-- Provide the operational verification gate before a candidate is eligible for `public`.
 
 ADO does not become the source of truth for source code.
 
@@ -129,19 +139,18 @@ Avoid broad refactoring during a focused increment unless the issue explicitly e
 
 ## CI/CD Design Principles
 
-The replacement ADO workflow should:
+The migration deliberately preserves the existing service CI/CD.
 
-1. Start from GitHub development state, normally `chatgpt`.
-2. Build the exact source revision that triggered the run.
-3. Produce identifiable artifacts and container images.
-4. Reuse the existing self-hosted PIs and Linux/x86 infrastructure where appropriate.
-5. Reuse the existing local Docker registry and security scanning where practical.
-6. Deploy only the candidate artifact that was built and identified by the run.
-7. Perform automated verification appropriate to the affected service.
-8. Preserve enough build/deployment information to correlate runtime results with the source revision.
-9. Make promotion to `public` a distinct release action rather than an incidental side effect of every build.
-
-The existing `azure-pipelines.yaml` files are reference implementations for service-specific build requirements. They are not architectural constraints on the replacement pipeline design.
+1. GitHub service `chatgpt` is authoritative for source and history.
+2. A GitHub `chatgpt` push triggers `edge-platform-automation`.
+3. Automation identifies the service and retrieves its GitHub source.
+4. Automation synchronizes that source tree into the matching ADO service `chatgpt` branch.
+5. The ADO branch change triggers the existing service CI/CD.
+6. Existing build, scan, registry, deployment, and release behavior remains in place.
+7. Runtime verification remains separate from successful build/deployment.
+8. ADO mirror history is not authoritative.
+9. `edge-platform-automation` does not directly modify GitHub `public`.
+10. The legacy automatic `public` behavior remains until a separate promotion design is implemented and verified.
 
 ## Documentation
 
