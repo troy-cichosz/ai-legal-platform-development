@@ -37,38 +37,48 @@ PRs should identify:
 
 PR approval is not a substitute for runtime verification.
 
-## ADO Trigger
+## GitHub → ADO Trigger
 
-The replacement CI/CD model should use a GitHub-driven trigger for applicable development changes.
-
-The intended path is:
+The approved migration path is:
 
 ```
-GitHub chatgpt change
+GitHub service/chatgpt
         |
         v
-Azure DevOps validation/build
+GitHub webhook
+        |
+        v
+edge-platform-automation - CI
+        |
+        | pull GitHub chatgpt source
+        v
+matching ADO service/chatgpt
+        |
+        v
+existing ADO service CI/CD
 ```
 
-The exact ADO/GitHub integration mechanism will be selected during ADO pipeline implementation. It must trigger against the intended development branch and build the revision that caused the run.
+The automation pipeline identifies the repository, validates the `chatgpt` branch, retrieves the source, and synchronizes it into the matching ADO service repository. The ADO branch is an operational build mirror; its commit history does not need to match GitHub.
 
 ## Promotion
 
-Normal promotion is:
+Current migration flow is:
 
 ```
-chatgpt
-  -> ADO validation/build
+GitHub chatgpt
+  -> edge-platform-automation synchronization
+  -> ADO service/chatgpt
+  -> existing ADO CI/CD
   -> deployment
   -> runtime verification
   -> documentation audit
   -> verified release candidate
-  -> public
+  -> existing public behavior
 ```
 
 `public` must not be treated as a normal development branch.
 
-The existing ADO force-push mechanism is legacy implementation behavior. It may be replaced when the new workflow is implemented and verified.
+The existing ADO force-push behavior remains during this migration so the established build/release flow is not disrupted. `edge-platform-automation` does not directly modify GitHub `public`.
 
 ## Repository-Specific Rules
 
