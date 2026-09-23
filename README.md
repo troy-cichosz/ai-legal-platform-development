@@ -28,10 +28,11 @@ GitHub webhook
 edge-platform-automation
         |
         v
-ADO service/chatgpt build mirrors
+ADO repository/chatgpt mirrors
         |
-        v
-Existing self-hosted ADO CI/CD
+        +--> build_service: existing self-hosted ADO CI/CD
+        |
+        +--> sync_only: public-maintenance pipeline
         |
         v
 Build / test / deploy / runtime verification
@@ -50,7 +51,7 @@ Across the platform repositories:
 - `chatgpt` is the primary working/development branch.
 - `public` is the release-candidate / last-known-good branch.
 - Changes are developed on `chatgpt`, not directly on `public`.
-- ADO service `chatgpt` branches are operational build mirrors, not authoritative history.
+- ADO `chatgpt` branches are operational mirrors, not authoritative history.
 - ADO remains the CI/CD and operational verification authority.
 - A Git commit or successful build is not, by itself, proof of runtime completion.
 - Verified operational state is eligible for controlled promotion to `public`.
@@ -64,9 +65,24 @@ Across the platform repositories:
 **Phase:** 4 — GitHub → ADO Automation  
 **Status:** IN PROGRESS
 
-Increment B, using `edge-gps` as the pilot, has demonstrated the end-to-end GitHub `chatgpt` → webhook → automation → ADO `chatgpt` → existing service CI/CD path.
+Increment B, using `edge-gps` as the pilot, demonstrated the end-to-end GitHub `chatgpt` → webhook → automation → ADO `chatgpt` → existing service CI/CD path.
 
-The immediate objective is to expand and harden that automation across all covered services, then establish the local coding-agent/Ollama workflow and automated runtime-verification gates that complete the intended development loop.
+Increment C now extends the automation registry to all seven current project repositories:
+
+### Build/deploy services
+
+- `edge-controller`
+- `edge-time`
+- `edge-gps`
+- `edge-video`
+- `edge-audio`
+
+### Sync-only development/control repositories
+
+- `ai-legal-platform-development`
+- `edge-platform-automation`
+
+The sync-only repositories receive ADO `chatgpt` mirrors and use lightweight public-maintenance pipelines rather than Docker build/deployment. The automation implementation is on `chatgpt`; ADO/runtime verification remains required before Increment C is considered complete.
 
 See:
 
@@ -86,13 +102,15 @@ This repository governs **how we develop the platform**.
 
 The platform repositories govern **what the platform is and how each service works**.
 
-The first repositories covered by this process are:
+The current repositories covered by this process are:
 
 - `edge-controller`
 - `edge-time`
 - `edge-gps`
 - `edge-video`
 - `edge-audio`
+- `ai-legal-platform-development`
+- `edge-platform-automation`
 
 Additional repositories can be brought under the process without changing the established branch model.
 
