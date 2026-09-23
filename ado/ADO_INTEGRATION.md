@@ -32,41 +32,59 @@ The current pipeline variables have been clarified:
 
 The existing YAML is therefore sufficient to document the legacy build/mirroring mechanics. It is reference material, not a requirement for the replacement design.
 
-## Replacement CI/CD Model
+## Approved Migration Architecture
 
-The target workflow is:
+The migration preserves the existing service CI/CD:
 
 ```
-GitHub chatgpt
-       |
-       | change trigger
-       v
-ADO validation/build
-       |
-       +--> source revision validation
-       +--> tests
-       +--> Docker build
-       +--> security scan
-       +--> identifiable image/artifacts
+GitHub service/chatgpt
        |
        v
-deployment to test environment
+edge-platform-automation - CI
+       |
+       | pull source
+       | synchronize matching ADO service/chatgpt
+       | create ADO mirror commit
+       v
+ADO service/chatgpt
        |
        v
-automated health/integration verification
-       |
-       v
-runtime verification evidence
-       |
-       v
-verified release candidate
-       |
-       v
-public promotion
+existing edge-<service> - CI/CD
 ```
 
-The replacement pipeline should be designed so that a build is tied to the exact GitHub revision that triggered it. A successful build alone does not establish runtime verification.
+GitHub `chatgpt` is authoritative for source and history. ADO service `chatgpt` is an operational build mirror. The synchronization should make the ADO working tree match GitHub, including deletion of files no longer present in GitHub.
 
+## Service Repository Mapping
+
+| GitHub repository | ADO project | ADO repository | ADO branch | Existing CI |
+|---|---|---|---|---|
+| `troy-cichosz/edge-controller` | `Docker` | `edge-controller` | `chatgpt` | `edge-controller - CI` |
+| `troy-cichosz/edge-time` | `Docker` | `edge-time` | `chatgpt` | `edge-time - CI` |
+| `troy-cichosz/edge-gps` | `Docker` | `edge-gps` | `chatgpt` | `edge-gps - CI` |
+| `troy-cichosz/edge-video` | `Docker` | `edge-video` | `chatgpt` | `edge-video - CI` |
+| `troy-cichosz/edge-audio` | `Docker` | `edge-audio` | `chatgpt` | `edge-audio - CI` |
+
+## Trigger
+
+The automation pipeline does not queue or replace service CI. It updates the matching ADO `chatgpt` branch and lets the existing branch-change trigger run normally.
+
+## Synchronization
+
+The automation uses the existing GitHub SSH mechanism for source access and the ADO pipeline OAuth/System.AccessToken for writes to the target ADO repository.
+
+The synchronization:
+1. retrieves GitHub `chatgpt`;
+2. replaces the ADO working tree;
+3. removes stale files;
+4. commits the synchronized tree in ADO;
+5. pushes ADO `chatgpt`;
+6. records GitHub and ADO revisions for correlation.
+
+The ADO commit history is not authoritative.
+
+## Migration Rule
+
+Do not modify existing service pipelines for this increment. Pilot with `edge-gps`, verify the ADO branch change triggers `edge-gps - CI`, then expand to the remaining services.
 ## Trigger
 
 A change to the GitHub `chatgpt` branch should initiate the applicable ADO validation workflow.
