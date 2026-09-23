@@ -153,3 +153,35 @@ At the beginning of a new development increment:
 7. Update this control plane when the process state materially changes.
 
 This file is the primary recovery point for this development-process effort.
+
+
+## Repository Coverage Decision
+
+Increment C is intentionally broader than the five runtime edge services.
+
+The automation target is **all project GitHub repositories**, with repository behavior determined by repository class:
+
+| Repository | Class | ADO mirror | Downstream behavior |
+|---|---|---|---|
+| `edge-controller` | build_service | `chatgpt` | Existing service CI/CD |
+| `edge-time` | build_service | `chatgpt` | Existing service CI/CD |
+| `edge-gps` | build_service | `chatgpt` | Existing service CI/CD |
+| `edge-video` | build_service | `chatgpt` | Existing service CI/CD |
+| `edge-audio` | build_service | `chatgpt` | Existing service CI/CD |
+| `ai-legal-platform-development` | sync_only | `chatgpt` | Synchronization/public maintenance only |
+| `edge-platform-automation` | sync_only | `chatgpt` | Synchronization/public maintenance only |
+
+This means an ADO mirror is required even when a repository has no Docker build/deployment requirement.
+
+For the two sync-only repositories, the next design must explicitly prevent recursive automation. In particular, synchronizing `edge-platform-automation` into its own ADO mirror must not cause an uncontrolled automation loop.
+
+The automation configuration should therefore evolve from a service-only list into a repository registry containing at least:
+
+- GitHub repository;
+- ADO repository;
+- development branch;
+- repository class;
+- downstream pipeline behavior;
+- whether public maintenance is required.
+
+This is a design/implementation requirement for Increment C, not yet a claim that all seven repositories are synchronized today.
