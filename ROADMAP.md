@@ -63,16 +63,14 @@
 - [x] Create/push and verify ADO synchronization commit.
 - [x] Confirm synchronized ADO `chatgpt` commit triggers existing `edge-gps - CI`.
 - [x] Preserve existing service CI/CD definitions.
-- [x] Confirm automation does not directly modify GitHub `public`.
 - [x] Record GitHub → ADO revision correlation.
 
 ### Increment C — Expand and Harden
 
-**Status:** NEXT
-
-Repository coverage is intentionally expanded to **all seven current project repositories**.
+**Status:** IMPLEMENTED; TARGETED HARDENING VERIFICATION REMAINS
 
 **Build/deploy services:**
+
 - `edge-controller`
 - `edge-time`
 - `edge-gps`
@@ -80,24 +78,33 @@ Repository coverage is intentionally expanded to **all seven current project rep
 - `edge-audio`
 
 **Sync-only development/control repositories:**
+
 - `ai-legal-platform-development`
 - `edge-platform-automation`
 
-Required work:
+Completed implementation/verification:
 
-- [ ] Expand synchronization to all five build-service repositories.
-- [ ] Add both sync-only repositories to the automation registry.
-- [ ] Introduce repository classification so sync-only repositories do not enter service Docker CI/CD unnecessarily.
-- [ ] Establish an ADO `chatgpt` mirror for every covered repository.
-- [ ] Define controlled public-maintenance behavior for sync-only repositories.
-- [ ] Design explicit recursion protection for `edge-platform-automation` self-synchronization.
-- [ ] Verify each build-service ADO `chatgpt` branch triggers its existing service CI.
-- [ ] Verify complete-tree deletion propagation.
-- [ ] Verify idempotent synchronization of unchanged source.
-- [ ] Verify non-`chatgpt` webhook events are harmless no-ops.
-- [ ] Add preflight protection for missing required ADO service pipeline definitions.
-- [ ] Preserve GitHub SHA → ADO synchronization SHA correlation.
-- [ ] Document verified results and remaining limitations.
+- [x] Expand synchronization registry to all seven repositories.
+- [x] Add both sync-only repositories to the automation registry.
+- [x] Introduce `build_service` / `sync_only` classification.
+- [x] Establish an ADO `chatgpt` mirror for each covered repository through the synchronization workflow.
+- [x] Keep build-service repositories on their existing service CI/CD path.
+- [x] Add preflight protection for required build-service `azure-pipelines.yaml`.
+- [x] Define sync-only downstream public-maintenance behavior.
+- [x] Establish explicit recursion protection for `edge-platform-automation`.
+- [x] Preserve complete-tree synchronization behavior.
+- [x] Preserve GitHub SHA → ADO synchronization SHA correlation.
+- [x] Verify successful controlled `chatgpt` runs across the covered repositories.
+- [x] Preserve harmless handling of non-`chatgpt` events in the automation definition.
+
+Targeted verification still to record explicitly:
+
+- [ ] Complete-tree deletion propagation.
+- [ ] Idempotent synchronization of unchanged source.
+- [ ] Non-`chatgpt` webhook no-op execution.
+- [ ] `edge-platform-automation` recursion-boundary execution.
+- [ ] GitHub SHA → ADO SHA correlation across representative post-expansion runs.
+- [ ] Final documentation audit and closure of Issue #3.
 
 ## Phase 5 — Automated Integration Verification
 
