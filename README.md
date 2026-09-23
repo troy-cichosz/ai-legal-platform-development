@@ -9,26 +9,38 @@ It does **not** contain the platform's application source code. The platform rep
 This repository defines and tracks the development process that connects:
 
 ```
-ChatGPT architecture / review
+Human / ChatGPT architecture and review
         |
         v
 GitHub Issues / branches / pull requests
         |
         v
-Coding agent / local implementation
+Local coding agent + local AI inference
+Windows workstation / Ollama
         |
         v
-Azure DevOps CI/CD
+GitHub chatgpt
         |
         v
-Existing self-hosted build/deployment environment
+GitHub webhook
+        |
+        v
+edge-platform-automation
+        |
+        v
+ADO service/chatgpt build mirrors
+        |
+        v
+Existing self-hosted ADO CI/CD
         |
         v
 Build / test / deploy / runtime verification
         |
         v
-Known-good GitHub release-candidate state
+Verified release-candidate state
 ```
+
+The intended process is local-first: repository implementation should be agent-assisted on the Windows workstation using local inference where practical, while the existing self-hosted ADO infrastructure performs reproducible build, deployment, and operational verification.
 
 ## Established Repository Rules
 
@@ -36,11 +48,12 @@ Across the platform repositories:
 
 - GitHub is the source of truth for committed source and documentation.
 - `chatgpt` is the primary working/development branch.
-- `public` is the release-candidate / last-known-good ADO-mirrored branch.
-- Changes are developed on `chatgpt), not directly on `public`.
+- `public` is the release-candidate / last-known-good branch.
+- Changes are developed on `chatgpt`, not directly on `public`.
+- ADO service `chatgpt` branches are operational build mirrors, not authoritative history.
 - ADO remains the CI/CD and operational verification authority.
 - A Git commit or successful build is not, by itself, proof of runtime completion.
-- Verified operational state is mirrored back to `public`.
+- Verified operational state is eligible for controlled promotion to `public`.
 - Existing architectural rules and service documentation remain authoritative for platform behavior.
 - Substantive implementation and architectural changes are reviewed before commitment.
 - Documentation is updated from verified results and according to document ownership.
@@ -48,19 +61,24 @@ Across the platform repositories:
 
 ## Current Process Effort
 
-**Phase:** 0 — Development Workflow Design  
+**Phase:** 4 — GitHub → ADO Automation  
 **Status:** IN PROGRESS
 
-The immediate objective is to establish a repeatable, agent-assisted development process without disrupting the existing edge platform.
+Increment B, using `edge-gps` as the pilot, has demonstrated the end-to-end GitHub `chatgpt` → webhook → automation → ADO `chatgpt` → existing service CI/CD path.
+
+The immediate objective is to expand and harden that automation across all covered services, then establish the local coding-agent/Ollama workflow and automated runtime-verification gates that complete the intended development loop.
 
 See:
 
 - `PROJECT_STATUS.md` — current process state and recovery point
-- `DEVELOPMENT_MODEL.md` — normal development lifecycle
+- `DEVELOPMENT_MODEL.md` — normal development lifecycle and responsibilities
 - `ARCHITECTURE.md` — process architecture and system boundaries
 - `DECISIONS.md` — durable decisions
 - `ROADMAP.md` — implementation phases
 - `agents/AGENTS.md` — coding-agent operating contract
+- `local/CODING_AGENT.md` — coding-agent evaluation
+- `local/WINDOWS_WORKSTATION.md` — local workstation and Ollama baseline
+- `ado/ADO_INTEGRATION.md` — ADO integration and automation contract
 
 ## Scope Boundary
 
@@ -82,4 +100,4 @@ Additional repositories can be brought under the process without changing the es
 
 The process is designed to use the existing GitHub, Windows workstation, Azure DevOps, self-hosted agents, Raspberry Pi infrastructure, and local GPU resources. No paid CI/CD platform or hosted AI service is required for the base workflow.
 
-Local model inference may be used where practical; model/service usage limits are documented separately rather than assumed away.
+Local model inference is a planned part of the development workflow. Model selection and resource policy remain an implementation task rather than an assumption.
