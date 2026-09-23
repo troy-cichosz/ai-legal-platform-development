@@ -22,37 +22,36 @@ All five currently use a two-job pattern: `BuildAndPush` followed by `Push`.
 
 `Push` uses a self-hosted `Linux x86 64bit` agent, creates an orphan branch named by `branch2Push`, removes selected files, and force-pushes that branch to GitHub using SSH authentication.
 
-The current pipeline variables have been clarified:
+The existing YAML is reference material during the automation migration. It remains unchanged unless a separate increment explicitly changes a service pipeline.
 
-- `branch2Push` = GitHub `public`.
-- `repoName` = corresponding GitHub repository name.
-- `gitCommit` = common commit message used when ADO updates `public`.
-- Git/SSH files and keys = authentication material allowing ADO to push to GitHub. Secret values are intentionally excluded from this documentation.
-- Agent pools = existing self-hosted PIs and Linux/x86 systems.
-
-The existing YAML is therefore sufficient to document the legacy build/mirroring mechanics. It is reference material, not a requirement for the replacement design.
-
-## Approved Migration Architecture
-
-The migration preserves the existing service CI/CD:
+## Approved Architecture
 
 ```
 GitHub service/chatgpt
        |
+       | GitHub push webhook
        v
 edge-platform-automation - CI
        |
-       | pull source
+       | identify repo/ref/SHA
+       | retrieve exact GitHub source
        | synchronize matching ADO service/chatgpt
-       | create ADO mirror commit
+       | create ADO sync commit
        v
 ADO service/chatgpt
        |
+       | existing branch-change trigger
        v
 existing edge-<service> - CI/CD
+       |
+       v
+build / scan / registry / deployment
+       |
+       v
+runtime verification
 ```
 
-GitHub `chatgpt` is authoritative for source and history. ADO service `chatgpt` is an operational build mirror. The synchronization should make the ADO working tree match GitHub, including deletion of files no longer present in GitHub.
+GitHub `chatgpt` is authoritative for source and history. ADO service `chatgpt` is an operational build mirror. Synchronization replaces the ADO working tree, including removal of files deleted in GitHub.
 
 ## Service Repository Mapping
 
@@ -64,97 +63,63 @@ GitHub `chatgpt` is authoritative for source and history. ADO service `chatgpt` 
 | `troy-cichosz/edge-video` | `Docker` | `edge-video` | `chatgpt` | `edge-video - CI` |
 | `troy-cichosz/edge-audio` | `Docker` | `edge-audio` | `chatgpt` | `edge-audio - CI` |
 
-## Trigger
+## Increment B — Verified Pilot
 
-The automation pipeline does not queue or replace service CI. It updates the matching ADO `chatgpt` branch and lets the existing branch-change trigger run normally.
+The `edge-gps` pilot proved:
 
-## Synchronization
+1. GitHub `chatgpt` push reaches automation.
+2. Repository/ref/SHA are identified.
+3. Exact source is retrieved and verified.
+4. Complete source tree is synchronized to ADO `edge-gps/chatgpt`.
+5. Stale files are removed.
+6. ADO synchronization commit is pushed and verified.
+7. Existing `edge-gps - CI` triggers from the ADO branch change.
+8. Existing service CI/CD remains unchanged.
+9. Automation does not directly modify GitHub `public`.
 
-The automation uses the existing GitHub SSH mechanism for source access and the ADO pipeline OAuth/System.AccessToken for writes to the target ADO repository.
+A service's required ADO pipeline definition must exist in the authoritative GitHub source before complete-tree synchronization, because synchronization intentionally removes files absent from GitHub.
 
-The synchronization:
-1. retrieves GitHub `chatgpt`;
-2. replaces the ADO working tree;
-3. removes stale files;
-4. commits the synchronized tree in ADO;
-5. pushes ADO `chatgpt`;
-6. records GitHub and ADO revisions for correlation.
+## Increment C — Expansion and Hardening
 
-The ADO commit history is not authoritative.
+The next automation increment is to expand the proven pilot to all remaining covered services and harden the workflow.
 
-## Migration Rule
+Required checks:
 
-Do not modify existing service pipelines for this increment. Pilot with `edge-gps`, verify the ADO branch change triggers `edge-gps - CI`, then expand to the remaining services.
-## Trigger
+- each service has its expected `azure-pipelines.yaml` on GitHub `chatgpt`;
+- each service can synchronize into ADO `chatgpt`;
+- each synchronized ADO branch triggers the existing service CI;
+- deletion propagation works;
+- unchanged source is idempotent;
+- non-`chatgpt` webhook events do not modify ADO;
+- GitHub and ADO revisions remain correlated.
 
-A change to the GitHub `chatgpt` branch should initiate the applicable ADO validation workflow.
+The automation may add preflight validation, but it must not replace the service CI trigger with direct queueing during this increment.
 
-The implementation should use the existing GitHub/ADO integration if it satisfies this requirement; otherwise a new GitHub/ADO integration may be created.
+## Trigger Behavior
 
-The trigger must:
+The webhook pipeline currently receives GitHub push events and performs a pipeline-level branch check. Only `refs/heads/chatgpt` is synchronized. Other supported repository push events complete as no-ops and do not modify ADO.
 
-- identify the correct repository;
-- identify the intended development branch;
-- build the triggering revision;
-- avoid treating `public` as the normal development trigger;
-- provide an observable ADO run associated with the GitHub change.
+## Verification Contract
 
-## Build
+For each affected service, distinguish:
 
-Each service pipeline should retain only the service-specific behavior required by the service.
+1. source synchronization;
+2. ADO CI trigger;
+3. build;
+4. scan/test;
+5. artifact/image publication;
+6. deployment;
+7. runtime verification;
+8. cross-service verification where applicable;
+9. documentation update.
 
-The existing YAML establishes useful baseline requirements:
-
-- self-hosted Linux agents;
-- Docker build/push;
-- local registry `docker.spoocannon.com:5000`;
-- service-specific architecture requirements;
-- versioning from `ver.txt`;
-- Trivy scanning;
-- ADO artifacts.
-
-The replacement should preserve these requirements unless a deliberate improvement is documented.
-
-## Deployment
-
-Deployment should use the existing test environment where possible.
-
-A deployment must identify:
-
-- source revision;
-- image/artifact version;
-- target node/environment;
-- deployment result.
-
-Do not infer runtime success from a successful Docker build or registry push.
-
-## Verification
-
-For an affected repository:
-
-1. Source checkout.
-2. Static/unit tests as applicable.
-3. Container build.
-4. Security scan.
-5. Artifact/image publication.
-6. Deployment to the appropriate test target.
-7. Health/functional verification.
-8. Cross-service verification when applicable.
-9. Failure/recovery verification when required.
-10. Preserve build/deployment/runtime evidence.
-11. Report the candidate as verified or failed.
-
-Verification must be appropriate to the service. For example, edge services that depend on local hardware or `edge-time` require runtime checks that cannot be established from source compilation alone.
+A successful synchronization or build is not runtime proof.
 
 ## Promotion Gate
 
 Only verified state should become the `public` release-candidate baseline.
 
-The current automatic ADO orphan-branch/force-push behavior should not be carried forward automatically merely because it exists today.
-
-The replacement promotion mechanism should be a distinct release operation with an explicit relationship to the verified source revision.
-
-The exact mechanism—manual promotion, protected branch/PR, or another controlled ADO/GitHub operation—will be selected during implementation.
+The existing automatic ADO orphan-branch/force-push behavior remains during migration so current service release behavior is not disrupted. A separate increment will define and verify the long-term promotion mechanism.
 
 ## Security
 
@@ -164,14 +129,13 @@ The existing ADO GitHub authentication mechanism may be reused, replaced, or mig
 
 ## Migration Rule
 
-Do not remove or modify the existing working pipelines until the replacement workflow has been implemented and verified.
+Do not remove or modify existing working service pipelines until the replacement workflow has been implemented and verified.
 
-Migration should be:
+The current sequence is:
 
-1. Define replacement pipeline.
-2. Implement.
-3. Test against a non-destructive change.
-4. Verify build/deployment/runtime behavior.
-5. Verify `chatgpt` → ADO triggering.
-6. Verify controlled `public` promotion.
-7. Only then retire or repurpose legacy mirroring behavior.
+1. Verify Increment B pilot.
+2. Expand/harden synchronization in Increment C.
+3. Establish the local coding-agent/Ollama workflow.
+4. Define automated runtime/integration verification.
+5. Define and verify controlled `public` promotion.
+6. Retire or repurpose legacy automatic mirroring only after the replacement is proven.
