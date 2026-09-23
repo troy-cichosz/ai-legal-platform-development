@@ -2,7 +2,7 @@
 
 ## Phase 0 — Development Workflow Design
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 - [x] Create process control-plane repository.
 - [x] Establish `chatgpt` working / `public` release-candidate model.
@@ -17,22 +17,20 @@
 - [x] Define GitHub webhook → `edge-platform-automation` trigger model.
 - [x] Define GitHub `chatgpt` → ADO service-repository synchronization model.
 - [x] Define ADO service `chatgpt` as an operational build-triggering mirror, not authoritative history.
-- [ ] Verify the first end-to-end synchronization and existing service CI trigger.
-- [ ] Define replacement validation/build/deployment pipeline contract beyond the retained service CIs.
-- [ ] Define automated runtime/integration verification contract.
-- [ ] Define exact `chatgpt` → `public` promotion gate.
+- [x] Verify the first end-to-end synchronization and existing service CI trigger with `edge-gps`.
+- [x] Establish the local-first coding-agent/Ollama direction as part of the target development workflow.
 
 ## Phase 1 — ADO Integration Mapping
 
-- [ ] Document ADO projects.
-- [ ] Document replacement pipeline names and repository mappings.
-- [ ] Document self-hosted agent pools/capabilities.
-- [ ] Document reusable service connections and registry access.
-- [ ] Document deployment targets.
-- [ ] Document environment/test topology.
+**Status:** BASELINE COMPLETE; deeper replacement work deferred until automation expansion is proven.
+
+- [x] Document ADO project and covered service mappings.
+- [x] Document existing self-hosted agent-pool scope.
+- [x] Document existing registry/scanning/build mechanics.
+- [x] Document current deployment/verification responsibilities at the process level.
 - [ ] Define the minimum CI validation contract for changes on `chatgpt`.
 - [ ] Define promotion verification required before `public`.
-- [ ] Build and validate the first replacement pipeline.
+- [ ] Define any replacement pipeline contract needed after the existing service CI/CD is no longer sufficient.
 
 ## Phase 2 — GitHub Development Standard
 
@@ -42,33 +40,55 @@
 - [ ] Establish repository-specific agent instruction discovery.
 - [ ] Establish labels/milestones appropriate to development-process tracking.
 
-## Phase 3 — Coding Agent
+## Phase 3 — Local Coding Agent + AI
 
-- [ ] Evaluate free/local coding-agent options against the real workflow.
+- [ ] Evaluate free/local coding-agent options against the real GitHub/ADO workflow.
 - [ ] Evaluate local Ollama model suitability on RTX 3060 12 GB.
 - [ ] Define agent permissions and safety boundaries.
 - [ ] Establish repeatable Windows workstation setup.
 - [ ] Validate agent implementation on a low-risk repository change.
+- [ ] Connect the agent workflow to the standard GitHub Issue → `chatgpt` process.
 
 ## Phase 4 — GitHub → ADO Automation
 
-- [x] Trigger `edge-platform-automation` from GitHub changes using the webhook integration.
-- [x] Identify supported service repositories and `chatgpt` branches.
-- [ ] Synchronize GitHub service `chatgpt` source into matching ADO service repositories.
-- [ ] Confirm synchronized ADO `chatgpt` commits trigger the existing service CIs.
-- [ ] Build affected repositories through the existing service pipelines.
-- [ ] Run automated tests.
-- [ ] Produce identifiable build artifacts/results.
-- [ ] Make deployment to the test environment repeatable.
+### Increment B — `edge-gps` Pilot
+
+**Status:** VERIFIED END-TO-END
+
+- [x] Trigger `edge-platform-automation` from GitHub `chatgpt` changes.
+- [x] Identify supported repository/ref/SHA.
+- [x] Retrieve and verify exact GitHub source.
+- [x] Synchronize complete source tree into matching ADO `chatgpt`.
+- [x] Remove stale files.
+- [x] Create/push and verify ADO synchronization commit.
+- [x] Confirm synchronized ADO `chatgpt` commit triggers existing `edge-gps - CI`.
+- [x] Preserve existing service CI/CD definitions.
+- [x] Confirm automation does not directly modify GitHub `public`.
+- [x] Record GitHub → ADO revision correlation.
+
+### Increment C — Expand and Harden
+
+**Status:** NEXT
+
+- [ ] Expand synchronization to `edge-controller`, `edge-time`, `edge-video`, and `edge-audio`.
+- [ ] Verify each synchronized ADO `chatgpt` branch triggers its existing service CI.
+- [ ] Verify complete-tree deletion propagation for each service.
+- [ ] Verify idempotent synchronization of unchanged source.
+- [ ] Verify non-`chatgpt` webhook events are harmless no-ops.
+- [ ] Add preflight protection for missing required ADO service pipeline definitions.
+- [ ] Preserve GitHub SHA → ADO synchronization SHA correlation.
+- [ ] Document verified results and remaining limitations.
 
 ## Phase 5 — Automated Integration Verification
 
+- [ ] Define a common verification contract with service-specific checks.
 - [ ] Deploy approved artifacts to test nodes.
 - [ ] Run service health checks.
 - [ ] Run cross-service integration checks.
 - [ ] Run relevant evidence/time/provenance checks.
 - [ ] Run failure/recovery checks where required.
 - [ ] Record verification results in the appropriate system.
+- [ ] Make verification results usable as a promotion gate.
 
 ## Phase 6 — Release-Candidate Promotion
 
