@@ -69,3 +69,15 @@ When current repository state can be inspected, it takes precedence over prior c
 **Status:** Accepted
 
 The platform repositories explicitly retire legacy `chatgpt.md` handoff documents. Durable state belongs in the owned project/service documents and this process repository where appropriate.
+
+## D-011 — GitHub-to-ADO Source Synchronization
+
+**Status:** Accepted
+
+GitHub service `chatgpt` is the authoritative development source. `edge-platform-automation` synchronizes that source into the matching ADO service `chatgpt` branch so the existing service CI/CD can run without replacing its trigger model.
+
+The ADO service repository is an operational build mirror. Its commit history does not need to match GitHub.
+
+The synchronization is complete-tree: files deleted from authoritative GitHub source are removed from the ADO working tree.
+
+`edge-platform-automation` does not directly modify GitHub `public`.
