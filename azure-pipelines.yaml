@@ -2,7 +2,7 @@ trigger:
   - '*.*'
 
 # Build agent
-pool:  'Linux ARM 64bit'
+pool:  'Linux x86 64bit'
 
 variables:
   - group: 'GitHub'
