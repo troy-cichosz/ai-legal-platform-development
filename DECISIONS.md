@@ -20,9 +20,9 @@ Changes should not be developed directly on `public`.
 
 **Status:** Accepted
 
-`public` represents the release-candidate / last-known-good ADO-mirrored state.
+`public` represents the release-candidate / last-known-good ADO-maintained state.
 
-Promotion to `public` requires the established build, deployment, runtime verification, and documentation workflow.
+Promotion/maintenance of `public` requires the established build, deployment, runtime verification, and documentation workflow appropriate to the repository class.
 
 ## D-004 — ADO Remains CI/CD Authority
 
@@ -56,7 +56,7 @@ The new process repository does not replace or weaken the platform's existing ar
 
 **Status:** Accepted
 
-Automation may build, test, deploy, collect evidence, and prepare promotion. Promotion to the release-candidate baseline must remain tied to the verified operational workflow.
+Automation may build, test, deploy, collect evidence, and prepare public maintenance. Promotion to the release-candidate baseline remains tied to the verified operational workflow.
 
 ## D-009 — Repository State Before Conversation Memory
 
@@ -74,10 +74,17 @@ The platform repositories explicitly retire legacy `chatgpt.md` handoff document
 
 **Status:** Accepted
 
-GitHub service `chatgpt` is the authoritative development source. `edge-platform-automation` synchronizes that source into the matching ADO service `chatgpt` branch so the existing service CI/CD can run without replacing its trigger model.
+GitHub `chatgpt` is the authoritative development source for all covered project repositories.
 
-The ADO service repository is an operational build mirror. Its commit history does not need to match GitHub.
+`edge-platform-automation` synchronizes the authoritative source into the matching ADO repository's `chatgpt` branch.
+
+The seven covered repositories are classified as either `build_service` or `sync_only`:
+
+- `build_service` repositories continue into their existing service CI/CD.
+- `sync_only` repositories use their ADO `chatgpt` branch for repository-maintenance work and their existing `azure-pipelines.yaml` public-maintenance pipeline.
+
+The ADO repository is an operational mirror. Its commit history does not need to match GitHub.
 
 The synchronization is complete-tree: files deleted from authoritative GitHub source are removed from the ADO working tree.
 
-`edge-platform-automation` does not directly modify GitHub `public`.
+Only GitHub `chatgpt` events are accepted by the synchronization automation. This provides the recursion boundary when `edge-platform-automation` public maintenance generates a subsequent GitHub `public` event.
