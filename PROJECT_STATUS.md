@@ -1,7 +1,7 @@
 # Project Status
 
 **Repository:** `ai-legal-platform-development`  
-**Current phase:** Phase 0 — Development Workflow Design  
+**Current phase:** Phase 4 — GitHub → ADO Automation  
 **Status:** IN PROGRESS  
 **Last reviewed:** September 23, 2026
 
@@ -15,8 +15,6 @@
 
 ## Branch Model
 
-| Branch | Role |
-|---|---|
 | Location | Branch | Role |
 |---|---|---|
 | GitHub service repositories | `chatgpt` | Authoritative working/development branch and history |
@@ -35,8 +33,6 @@ The current edge repositories are:
 - `edge-video`
 - `edge-audio`
 
-All five currently expose both `chatgpt` and `public` branches.
-
 The current platform documentation establishes:
 
 - `edge-controller` as the generic management/policy plane.
@@ -50,7 +46,7 @@ The current platform documentation establishes:
 
 ## Current Verified Platform State
 
-The reviewed `public` baseline shows:
+The reviewed baseline shows:
 
 - `edge-controller`: generic management foundation is at maintenance-level status.
 - `edge-time`: authoritative time foundation and Capture Time Context are operational.
@@ -58,38 +54,21 @@ The reviewed `public` baseline shows:
 - `edge-video`: operational MVP with local `edge-time` temporal integration complete and verified.
 - `edge-audio`: working MVP with local `edge-time` integration complete and verified; calibration refinement remains active.
 
-The current platform direction is common evidence-model alignment across `edge-video` and `edge-audio`.
+## Automation State
 
-## ADO Pipeline Baseline Reviewed
+The approved automation architecture is:
 
-The current `azure-pipelines.yaml` files in all five `public` branches have been reviewed.
-
-The existing pipelines use a common self-hosted build → Docker build/push → Trivy/ADO artifacts → GitHub mirroring pattern. The current `Push` job creates an orphan branch and force-pushes it to GitHub.
-
-The existing ADO configuration has now clarified the previously unknown pipeline variables:
-
-- `branch2Push` is the GitHub `public` branch.
-- `repoName` identifies the corresponding GitHub repository.
-- `gitCommit` supplies the common commit message used when ADO updates `public`.
-- Git/SSH files, keys, and related variables provide ADO's authenticated ability to push to GitHub; secret values are not required for the process inventory.
-- Self-hosted ADO agent pools are the existing PIs and Linux/x86 systems.
-
-The existing YAML remains useful as implementation reference, but it does not need to constrain the replacement CI/CD design.
-
-## Current CI/CD Architecture
-
-The approved migration preserves the existing service CI/CD:
-
-```text
+```
 GitHub service/chatgpt
         |
         | push webhook
         v
-edge-platform-automation - CI
+edge-platform-automation
         |
-        | identify service + pull GitHub chatgpt source
+        | identify repository/ref/SHA
+        | retrieve exact GitHub source
         | synchronize matching ADO service/chatgpt
-        | create ADO mirror commit
+        | create ADO synchronization commit
         v
 ADO service/chatgpt
         |
@@ -97,61 +76,69 @@ ADO service/chatgpt
         v
 existing edge-<service> - CI/CD
         |
-        | existing build / scan / registry / deployment
         v
-existing GitHub public behavior
+build / scan / registry / deployment
+        |
+        v
+runtime verification
 ```
 
-GitHub `chatgpt` history remains authoritative. ADO service `chatgpt` is an operational build mirror; its history does not need to match GitHub. Synchronization replaces the ADO working tree so GitHub deletions also remove stale ADO files.
+### Increment B — Pilot Result
 
-The existing five service CI/CD definitions are not modified for this migration.
+**Pilot:** `edge-gps`  
+**Status:** VERIFIED END-TO-END
 
-## Process Design State
+The pilot demonstrated:
 
-Established:
+- GitHub `edge-gps/chatgpt` push reaches the automation webhook pipeline.
+- The automation identifies repository, `chatgpt` ref, and triggering SHA.
+- Exact GitHub source is retrieved and verified.
+- The complete source tree is synchronized into ADO `edge-gps/chatgpt`.
+- Stale files are removed.
+- The ADO synchronization commit is pushed and its remote SHA is verified.
+- The existing `edge-gps - CI` triggers from the ADO branch change.
+- Existing service CI/CD remains unchanged.
+- GitHub `public` is not modified directly by `edge-platform-automation`.
+- The service's legacy ADO pipeline was restored to GitHub `chatgpt` during the pilot because complete-tree synchronization correctly removes files absent from the authoritative source.
 
-- GitHub source-of-truth model.
-- `chatgpt` working branch / `public` release-candidate model.
-- ADO remains CI/CD and operational verification authority.
-- Existing ADO self-hosted infrastructure should be reused.
-- Current ADO pipeline YAML baseline reviewed from all five `public` branches.
-- Existing `branch2Push`, `repoName`, and `gitCommit` semantics established.
-- Existing GitHub authentication mechanism understood at a non-secret level.
-- Windows 11 workstation with RTX 3060 12 GB is the primary local development/agent host.
-- Local Ollama is an available candidate for free local inference.
-- Docker Desktop is not a prerequisite for the process.
-- New development-process repository established as this control plane.
+The pilot proves the synchronization mechanism and the preserved existing-CI trigger path. It does not yet establish the full five-service automation contract.
 
-Not yet established:
+## Current Automation Increment
 
-- Exact ADO pipeline definitions and GitHub service-hook/repository trigger configuration to use for the new workflow.
-- Standard ADO pipeline template for development validation.
-- Automated deployment/integration-test contract across the existing edge environment.
-- Exact `chatgpt` → `public` promotion mechanism.
-- Coding-agent selection and operating procedure.
-- Local Ollama model selection and resource policy.
-- Repository-wide GitHub Issue/PR templates and labels for agent work.
+**Increment C — Expand and harden GitHub → ADO synchronization**  
+**GitHub Issue:** #3
 
-## Current Next Increment
+Scope:
 
-**Increment B — GitHub → ADO service-repository synchronization**
+- Expand from `edge-gps` to all five covered services.
+- Verify each service's existing CI trigger.
+- Verify complete-tree deletion propagation.
+- Verify idempotent synchronization.
+- Verify harmless no-op behavior for non-`chatgpt` pushes.
+- Preserve GitHub SHA → ADO synchronization SHA correlation.
+- Add preflight protection against missing required ADO service pipeline definitions.
+- Keep existing service CI/CD definitions unchanged.
 
-Pilot: `edge-gps`.
+## Development-Agent / Local-AI State
 
-Acceptance:
+The intended development loop is local-first:
 
-- GitHub `edge-gps/chatgpt` push reaches `edge-platform-automation - CI`.
-- Automation identifies the service and triggering SHA.
-- Automation retrieves the GitHub `chatgpt` source.
-- Automation synchronizes the source tree into ADO `Docker/edge-gps` branch `chatgpt`.
-- Deleted GitHub files are absent from the synchronized ADO working tree.
-- An ADO synchronization commit is pushed.
-- Existing `edge-gps - CI` triggers from that ADO branch change.
-- Existing service CI/CD runs without modification.
-- GitHub `chatgpt` remains authoritative.
-- Automation does not directly modify GitHub `public`.
+- Windows 11 workstation is the preferred coding-agent host.
+- RTX 3060 12 GB is available for local inference.
+- Ollama is the planned local inference runtime.
+- GitHub Issues provide durable task input.
+- Coding agents inspect repositories, implement scoped issues, run local tests, review diffs, and commit to `chatgpt`.
+- `edge-platform-automation` transports authoritative source into ADO.
+- ADO performs build/deployment/operational verification.
 
-The existing service pipelines remain operational throughout this increment.
+Still to establish:
+
+- coding-agent selection and repeatable operating procedure;
+- Ollama model selection/resource policy;
+- agent permissions and safety boundaries;
+- standard issue/PR templates and labels;
+- automated runtime/integration verification;
+- exact controlled `chatgpt` → `public` promotion mechanism.
 
 ## Recovery Rule
 
