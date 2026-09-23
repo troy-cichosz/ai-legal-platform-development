@@ -2,7 +2,9 @@
 
 ## Objective
 
-Use ChatGPT for architecture, requirements, cross-service reasoning, review, and verification planning while delegating repository implementation and mechanical development work to coding agents where that improves throughput.
+Use ChatGPT for architecture, requirements, cross-service reasoning, review, and verification planning while delegating repository implementation and mechanical development work to a coding agent running on the local Windows workstation where that improves throughput.
+
+Use local AI inference through Ollama where practical so the baseline development workflow does not require a paid hosted coding service.
 
 The model must preserve human control over architectural decisions and operational verification.
 
@@ -18,13 +20,13 @@ The model must preserve human control over architectural decisions and operation
 3. Create or update GitHub Issue
         |
         v
-4. Work on chatgpt branch
+4. Local coding agent inspects repository + issue
         |
         v
-5. Coding agent implements/tests/reviews
+5. Agent implements/tests/reviews on chatgpt
         |
         v
-6. Pull request / code review
+6. Pull request / code review as appropriate
         |
         v
 7. GitHub chatgpt push triggers edge-platform-automation
@@ -42,8 +44,27 @@ The model must preserve human control over architectural decisions and operation
 11. Documentation completion audit
         |
         v
-12. Verified state becomes eligible for public promotion
+12. Verified state becomes eligible for controlled public promotion
 ```
+
+## Local Agent + AI Boundary
+
+The local workstation is the implementation environment.
+
+The coding agent is responsible for repository-scale mechanical work. Ollama provides local model inference where practical and where supported by the selected agent.
+
+The local agent workflow must:
+
+- take a GitHub Issue as durable task input;
+- read repository-specific instructions before editing;
+- inspect actual source and current branch state;
+- implement only the approved scope;
+- run practical local tests;
+- inspect its diff;
+- report limitations and unresolved issues;
+- commit/push only to the designated development workflow.
+
+Architecture, cross-service contracts, evidence semantics, temporal authority, and release policy remain explicit design decisions rather than agent assumptions.
 
 ## Responsibilities
 
@@ -154,6 +175,16 @@ The migration deliberately preserves the existing service CI/CD.
 
 ## Documentation
 
-The platform's existing document ownership model remains in force.
+Update only documents whose owned information changed.
 
-Do not replace service/project status files with agent-generated summaries. The process repository records the development workflow; the owning platform repository records service behavior and verified state.
+Do not create legacy `chatgpt.md` handoff documents.
+
+Distinguish:
+
+- implemented;
+- built;
+- deployed;
+- runtime verified;
+- future/deferred.
+
+The process repository records the development workflow. The owning platform repository records service behavior and verified service state.
