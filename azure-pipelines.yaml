@@ -34,7 +34,7 @@ steps:
         git checkout --orphan "$(PUBLIC_BRANCH)"
         find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} \;
 
-        find "$SNAPSHOT_DIR" -mindepth 1 -maxdepth 1 ! -name .git ! -name chatgpt-pipelines.yaml -exec cp -a {} "$SOURCE_DIR"/ \;
+        find "$SNAPSHOT_DIR" -mindepth 1 -maxdepth 1 ! -name .git ! -name azure-pipelines.yaml -exec cp -a {} "$SOURCE_DIR"/ \;
 
         git config user.name "$(gitUID)"
         git config user.email "$(gitUID)@users.noreply.github.com"
@@ -64,4 +64,4 @@ steps:
         ssh-keyscan -t $(keyID) github.com >> ~/.ssh/known_hosts
 
         git push "git@github.com:$(gitUID)/$(repoName).git"           HEAD:refs/heads/$(PUBLIC_BRANCH)           --force           --tags
-    workingDirectory: $(Build.SourcesDirectory)
+      workingDirectory: $(Build.SourcesDirectory)
