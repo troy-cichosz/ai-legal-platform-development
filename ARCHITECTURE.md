@@ -8,35 +8,44 @@ This repository is the control plane for the development process, not the runtim
                          HUMAN
                            |
                            v
-                    CHATGPT / REVIEW
+                CHATGPT / ARCHITECTURE
                            |
                            v
                     GITHUB CONTROL
              Issues / branches / PRs / docs
                            |
                            v
-                    CODING AGENT
-                    Windows workstation
+                 LOCAL CODING AGENT
+                 Windows + local AI
                            |
                            v
-                    chatgpt branch
+                    GitHub chatgpt
                            |
                            v
-                   AZURE DEVOPS CI/CD
+                    GITHUB WEBHOOK
                            |
-                 +---------+---------+
-                 |                   |
-                 v                   v
-              BUILD/TEST        DEPLOYMENT
-                                     |
-                                     v
-                              EDGE TEST TARGETS
-                                     |
-                                     v
-                           RUNTIME VERIFICATION
-                                     |
-                                     v
-                         known-good public state
+                           v
+              EDGE-PLATFORM-AUTOMATION
+                           |
+                           v
+                ADO service/chatgpt
+                           |
+                           v
+                 EXISTING ADO CI/CD
+                           |
+                    +------+------+
+                    |             |
+                    v             v
+                 BUILD/TEST    DEPLOYMENT
+                                  |
+                                  v
+                           EDGE TEST TARGETS
+                                  |
+                                  v
+                         RUNTIME VERIFICATION
+                                  |
+                                  v
+                         RELEASE CANDIDATE
 ```
 
 ## Authority Boundaries
@@ -62,6 +71,12 @@ Authoritative for:
 - service maturity/status;
 - project-level architectural rules maintained by the platform repository.
 
+### Local Coding Agent / Ollama
+
+The local workstation is an implementation aid, not an authority.
+
+The agent may inspect, edit, test, diff, commit, and prepare PRs within explicit repository and issue constraints. Local model output does not establish architecture, runtime correctness, or legal conclusions.
+
 ### Azure DevOps
 
 Authoritative for:
@@ -78,7 +93,7 @@ ADO is not a second source of truth for source code.
 
 Authoritative for observed behavior of deployed artifacts.
 
-A source file cannot establish that runtime behavior works.
+A source file, model response, or successful build cannot establish that runtime behavior works.
 
 ## Agent Boundary
 
@@ -96,13 +111,13 @@ Agents may:
 
 Agents must follow repository-specific rules before making changes.
 
-Agents must not silently redefine architectural boundaries, branch roles, evidence semantics, or verification standards.
+Agents must not silently redefine architectural boundaries, branch roles, evidence semantics, temporal authority, or verification standards.
 
 ## CI/CD Boundary
 
 The process is intentionally ADO-centric because the existing self-hosted infrastructure already performs the required build/deployment work.
 
-GitHub changes should trigger the applicable ADO validation pipeline. The exact trigger mechanism is an implementation item and must be established from the current ADO inventory rather than assumed.
+The automation layer moves authoritative GitHub source into ADO service mirrors so existing service CI/CD can remain intact. It is not a second build system.
 
 ## Runtime Platform Boundary
 
@@ -114,3 +129,11 @@ The development process does not change the existing edge runtime architecture:
 - `edge-controller` remains management/policy plane;
 - cross-service HTTP remains host-addressed;
 - original evidence remains locally owned and immutable after finalization.
+
+## Design Principle
+
+Automate mechanical movement, build, deployment, and verification where evidence is available.
+
+Keep architecture, source-of-truth decisions, evidence authority, and release decisions explicit and reviewable.
+
+Local AI accelerates implementation; it does not become an authority over the platform.
