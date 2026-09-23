@@ -70,9 +70,29 @@
 
 **Status:** NEXT
 
-- [ ] Expand synchronization to `edge-controller`, `edge-time`, `edge-video`, and `edge-audio`.
-- [ ] Verify each synchronized ADO `chatgpt` branch triggers its existing service CI.
-- [ ] Verify complete-tree deletion propagation for each service.
+Repository coverage is intentionally expanded to **all seven current project repositories**.
+
+**Build/deploy services:**
+- `edge-controller`
+- `edge-time`
+- `edge-gps`
+- `edge-video`
+- `edge-audio`
+
+**Sync-only development/control repositories:**
+- `ai-legal-platform-development`
+- `edge-platform-automation`
+
+Required work:
+
+- [ ] Expand synchronization to all five build-service repositories.
+- [ ] Add both sync-only repositories to the automation registry.
+- [ ] Introduce repository classification so sync-only repositories do not enter service Docker CI/CD unnecessarily.
+- [ ] Establish an ADO `chatgpt` mirror for every covered repository.
+- [ ] Define controlled public-maintenance behavior for sync-only repositories.
+- [ ] Design explicit recursion protection for `edge-platform-automation` self-synchronization.
+- [ ] Verify each build-service ADO `chatgpt` branch triggers its existing service CI.
+- [ ] Verify complete-tree deletion propagation.
 - [ ] Verify idempotent synchronization of unchanged source.
 - [ ] Verify non-`chatgpt` webhook events are harmless no-ops.
 - [ ] Add preflight protection for missing required ADO service pipeline definitions.
