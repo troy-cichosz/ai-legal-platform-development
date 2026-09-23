@@ -14,8 +14,11 @@
 - [x] Establish existing ADO self-hosted agent-pool scope.
 - [x] Establish existing ADO → GitHub authentication purpose without retrieving secrets.
 - [x] Decide that existing pipeline YAML is reference material rather than a required replacement design.
-- [ ] Define replacement GitHub `chatgpt` → ADO trigger model.
-- [ ] Define replacement validation/build/deployment pipeline contract.
+- [x] Define GitHub webhook → `edge-platform-automation` trigger model.
+- [x] Define GitHub `chatgpt` → ADO service-repository synchronization model.
+- [x] Define ADO service `chatgpt` as an operational build-triggering mirror, not authoritative history.
+- [ ] Verify the first end-to-end synchronization and existing service CI trigger.
+- [ ] Define replacement validation/build/deployment pipeline contract beyond the retained service CIs.
 - [ ] Define automated runtime/integration verification contract.
 - [ ] Define exact `chatgpt` → `public` promotion gate.
 
@@ -49,8 +52,11 @@
 
 ## Phase 4 — GitHub → ADO Automation
 
-- [ ] Trigger ADO validation from GitHub changes using the new integration.
-- [ ] Build affected repositories automatically.
+- [x] Trigger `edge-platform-automation` from GitHub changes using the webhook integration.
+- [x] Identify supported service repositories and `chatgpt` branches.
+- [ ] Synchronize GitHub service `chatgpt` source into matching ADO service repositories.
+- [ ] Confirm synchronized ADO `chatgpt` commits trigger the existing service CIs.
+- [ ] Build affected repositories through the existing service pipelines.
 - [ ] Run automated tests.
 - [ ] Produce identifiable build artifacts/results.
 - [ ] Make deployment to the test environment repeatable.
