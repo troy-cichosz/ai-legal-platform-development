@@ -2,7 +2,9 @@
 
 ## Objective
 
-Select a coding agent that can operate against real GitHub repositories, follow repository instructions, edit code safely, run tests, review diffs, and work effectively with local inference where practical.
+Select and validate a local coding-agent environment that can operate against real GitHub repositories, follow repository instructions, edit code safely, run tests, review diffs, and work effectively with local inference.
+
+The environment must be suitable for both this development-process repository and the actual AI Legal Platform / edge repositories. The objective is repository-scale implementation that preserves established architecture and project goals, not generic code generation or broad repository rewriting.
 
 ## Requirements
 
