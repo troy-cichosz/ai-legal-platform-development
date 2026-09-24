@@ -40,14 +40,37 @@
 - [ ] Establish repository-specific agent instruction discovery.
 - [ ] Establish labels/milestones appropriate to development-process tracking.
 
-## Phase 3 — Local Coding Agent + AI
+## Phase 3 — Local Multi-Agent AI Development Environment
+
+**Status:** NEXT ACTIVE INCREMENT
+
+### Architecture and governance
+
+- [ ] Define the reusable local multi-agent architecture.
+- [ ] Define distinct roles for coding, rules/compliance, testing/review, and architecture/coordination.
+- [ ] Define explicit permissions and boundaries for each role.
+- [ ] Define durable handoff artifacts and required context between roles.
+- [ ] Define disagreement and escalation handling.
+- [ ] Ensure the coding agent cannot silently redefine platform architecture or established project goals.
+
+### Local inference and tooling
 
 - [ ] Evaluate free/local coding-agent options against the real GitHub/ADO workflow.
-- [ ] Evaluate local Ollama model suitability on RTX 3060 12 GB.
-- [ ] Define agent permissions and safety boundaries.
+- [ ] Install and validate Ollama on the Windows workstation.
+- [ ] Evaluate local model suitability on RTX 3060 12 GB.
+- [ ] Define model-to-role and resource policy.
 - [ ] Establish repeatable Windows workstation setup.
-- [ ] Validate agent implementation on a low-risk repository change.
-- [ ] Connect the agent workflow to the standard GitHub Issue → `chatgpt` process.
+
+### Validation
+
+- [ ] Validate repository instruction discovery and adherence.
+- [ ] Validate implementation quality on a low-risk real repository change.
+- [ ] Validate independent rules/compliance review against the same change.
+- [ ] Validate local test execution and diff review.
+- [ ] Validate the complete Issue → local agents → GitHub `chatgpt` workflow.
+- [ ] Validate the same environment against an actual edge service repository.
+- [ ] Confirm the environment preserves the established AI Legal Platform / edge architecture and does not introduce broad unsolicited rewrites.
+- [ ] Document the resulting operating procedure.
 
 ## Phase 4 — GitHub → ADO Automation
 
