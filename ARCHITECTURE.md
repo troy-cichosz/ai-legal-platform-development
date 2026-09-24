@@ -150,6 +150,12 @@ The development process does not change the existing edge runtime architecture:
 - cross-service HTTP remains host-addressed;
 - original evidence remains locally owned and immutable after finalization.
 
+## Reuse Across the Platform
+
+The local AI environment is not specific to this control-plane repository. Its repository-inspection, rule-discovery, implementation, testing, review, and handoff mechanisms must be usable against the current edge repositories and future platform repositories.
+
+Repository-local rules remain authoritative for service-specific behavior. The reusable agent environment supplies the development and enforcement framework; it does not replace service ownership.
+
 ## Design Principle
 
 Automate mechanical movement, build, deployment, and verification where evidence is available.
