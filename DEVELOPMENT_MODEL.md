@@ -26,13 +26,16 @@ The model must preserve human control over architectural decisions and operation
 3. Create or update GitHub Issue
         |
         v
-4. Local coding agent inspects repository + issue
+4. Local agent system inspects repository + issue
         |
         v
-5. Agent implements/tests/reviews on chatgpt
+5. Coding agent implements/tests/reviews on chatgpt
         |
         v
-6. Pull request / code review as appropriate
+6. Independent rules/compliance and test/review checks
+        |
+        v
+7. Pull request / code review as appropriate
         |
         v
 7. GitHub chatgpt push triggers edge-platform-automation
