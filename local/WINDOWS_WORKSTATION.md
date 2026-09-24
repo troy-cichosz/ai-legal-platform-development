@@ -26,10 +26,24 @@ Docker Desktop is not required for the baseline process.
 
 Container builds and deployment remain ADO responsibilities unless a concrete local workflow demonstrates that local Docker is useful.
 
-## GPU / Ollama
+## Local AI Environment
+
+The workstation is the reusable host for the local multi-agent development environment.
+
+The environment is intended to support both this process repository and the actual AI Legal Platform / edge repositories.
+
+### GPU / Ollama
 
 The RTX 3060 is available for local model inference.
 
-Model selection is deliberately deferred until the coding-agent workflow and repository task requirements are defined.
+Ollama is the planned local inference runtime.
 
-Do not assume that a model that fits in VRAM is automatically suitable for repository-scale coding work.
+Model selection must be based on repository-scale coding quality, instruction adherence, context handling, and resource usage—not merely whether a model fits in VRAM.
+
+The local environment must support role separation between coding and independent rules/compliance/testing review.
+
+### Cost
+
+The baseline local-AI workflow must operate without paid OpenAI API usage or a paid hosted coding-agent subscription.
+
+ChatGPT Free may remain the interactive architecture/reasoning interface, but it is not a dependency of the local agents.
