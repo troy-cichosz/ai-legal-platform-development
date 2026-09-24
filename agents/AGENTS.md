@@ -19,6 +19,9 @@
 ## Implementation
 
 - Work only within the issue scope.
+- Treat the coding-agent role as implementation, not architecture ownership.
+- Preserve the established project goal; do not reinterpret a focused issue as permission for a broad redesign.
+- Do not replace working code merely because a different implementation appears cleaner or more modern.
 - Preserve existing architecture unless the issue explicitly changes it.
 - Prefer the smallest change that satisfies the acceptance criteria.
 - Do not replace working code merely for stylistic reasons.
