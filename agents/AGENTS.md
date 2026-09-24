@@ -68,6 +68,26 @@ Before finishing:
 4. Report the exact commit/branch state.
 5. Do not claim runtime verification that the agent did not perform.
 
+## Independent Compliance Review
+
+Before a change is considered ready for commit:
+
+1. The coding agent reports its own tests and diff review.
+2. An independent rules/compliance check should inspect the same change where the local environment supports it.
+3. Compliance failures are corrected or explicitly escalated; they are not self-approved by the coding agent.
+4. Architectural questions are surfaced rather than resolved through assumption.
+
+The compliance check should verify, as applicable:
+
+- repository and project rules;
+- issue scope;
+- branch/workflow rules;
+- architecture and service boundaries;
+- evidence/provenance and temporal rules;
+- documentation ownership;
+- required tests and verification evidence;
+- unexpected broad changes.
+
 ## Architectural Escalation
 
 Stop and surface the issue when implementation appears to require:
