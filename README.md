@@ -41,7 +41,11 @@ Build / test / deploy / runtime verification
 Verified release-candidate state
 ```
 
-The intended process is local-first: repository implementation should be agent-assisted on the Windows workstation using local inference where practical, while the existing self-hosted ADO infrastructure performs reproducible build, deployment, and operational verification.
+The intended process is local-first: repository implementation should be performed by a controlled local multi-agent environment using local inference where practical, while the existing self-hosted ADO infrastructure performs reproducible build, deployment, and operational verification.
+
+The local AI environment is intended to serve both this development-process repository and the actual AI Legal Platform / edge service repositories. It must therefore be designed as a reusable engineering environment, not as a one-off tool for this control-plane project.
+
+The local coding model must be capable of repository-scale implementation suitable for this project while preserving established architecture and working behavior. Broad unsolicited rewrites are not acceptable. Independent rules/compliance review is a required control so correctness does not depend solely on the coding model following its own instructions.
 
 ## Established Repository Rules
 
