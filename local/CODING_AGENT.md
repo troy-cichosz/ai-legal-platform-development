@@ -35,6 +35,11 @@ Evaluate by documented behavior rather than popularity:
 8. Local-model compatibility.
 9. Windows operational fit.
 10. Permission/safety controls.
+11. Preservation of existing architecture and working behavior.
+12. Resistance to broad unsolicited rewrites.
+13. Ability to consume durable project rules and handoff artifacts.
+14. Compatibility with an independent rules/compliance agent.
+15. Reusability across the development-process repository and actual edge repositories.
 
 No agent is selected by this document.
 
