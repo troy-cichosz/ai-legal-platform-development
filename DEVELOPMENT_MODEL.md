@@ -38,7 +38,7 @@ The model must preserve human control over architectural decisions and operation
 7. Pull request / code review as appropriate
         |
         v
-7. GitHub chatgpt push triggers edge-platform-automation
+8. GitHub chatgpt push triggers edge-platform-automation
         |
         v
 8. Automation synchronizes source into matching ADO repository/chatgpt
