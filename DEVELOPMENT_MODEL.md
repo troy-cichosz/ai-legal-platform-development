@@ -4,7 +4,13 @@
 
 Use ChatGPT for architecture, requirements, cross-service reasoning, review, and verification planning while delegating repository implementation and mechanical development work to a coding agent running on the local Windows workstation where that improves throughput.
 
-Use local AI inference through Ollama where practical so the baseline development workflow does not require a paid hosted coding service.
+Use local AI inference through Ollama where practical so the baseline development workflow does not require a paid hosted coding service or OpenAI API dependency.
+
+The local environment must be reusable for both this development-process repository and the actual AI Legal Platform / edge repositories.
+
+The coding model is expected to perform repository-scale implementation with architectural fidelity suitable for this project. It must preserve existing working behavior and project goals and must not perform broad unsolicited rewrites.
+
+The model itself is not the sole rule-enforcement mechanism. Independent compliance and review roles are part of the design.
 
 The model must preserve human control over architectural decisions and operational verification.
 
