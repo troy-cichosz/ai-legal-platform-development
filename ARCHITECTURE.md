@@ -79,11 +79,23 @@ Authoritative for:
 - service maturity/status;
 - project-level architectural rules maintained by the platform repository.
 
-### Local Coding Agent / Ollama
+### Local Multi-Agent AI System / Ollama
 
-The local workstation is an implementation aid, not an authority.
+The local workstation is the reusable implementation environment for both the development-process repository and the actual AI Legal Platform / edge repositories.
 
-The agent may inspect, edit, test, diff, commit, and prepare PRs within explicit repository and issue constraints. Local model output does not establish architecture, runtime correctness, or legal conclusions.
+The local system separates implementation from independent compliance and verification:
+
+- **Coding agent:** scoped repository implementation, local tests, and diff review.
+- **Rules/compliance agent:** independent checks of repository instructions, issue scope, architecture, invariants, and documentation requirements.
+- **Testing/review agents:** independent test/result analysis and implementation review where useful.
+- **ChatGPT:** human-facing architecture, requirements, cross-service reasoning, and difficult review.
+- **Human:** authority for architecture, operational confirmation, and final release decisions.
+
+The coding model must perform repository-scale work without broad unsolicited rewrites. Existing working behavior, architecture, evidence semantics, temporal authority, service boundaries, and project goals are preserved unless an approved issue explicitly changes them.
+
+Ollama provides the local inference layer. The local system must not depend on OpenAI API access or a paid hosted coding-agent service for its base operation.
+
+Local model output does not establish architecture, runtime correctness, or legal conclusions.
 
 ### Azure DevOps
 
