@@ -109,6 +109,8 @@ Additional repositories can be brought under the process without changing the es
 
 ## Cost Constraint
 
-The process is designed to use the existing GitHub, Windows workstation, Azure DevOps, self-hosted agents, Raspberry Pi infrastructure, and local GPU resources. No paid CI/CD platform or hosted AI service is required for the base workflow.
+The process is designed to use the existing GitHub, Windows workstation, Azure DevOps, self-hosted agents, Raspberry Pi infrastructure, and local GPU resources. No paid CI/CD platform or hosted AI service is required for the base workflow. The base AI development environment must not depend on paid OpenAI API usage or a paid hosted coding-agent subscription.
 
-Local model inference is a planned part of the development workflow. Model selection and resource policy remain an implementation task rather than an assumption.
+ChatGPT Free remains the human-facing architecture/reasoning resource. It is not treated as a free API backend for local agents. Local autonomous development uses Ollama/local models.
+
+Local model selection, model-to-role assignment, and resource policy are now the immediate implementation tasks. The selected local environment must remain reusable for the actual AI Legal Platform / edge repositories.
