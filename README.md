@@ -89,6 +89,7 @@ See:
 - `DECISIONS.md` — durable decisions
 - `ROADMAP.md` — implementation phases
 - `agents/AGENTS.md` — coding-agent operating contract
+- `agents/AGENT_ARCHITECTURE.md` — local multi-agent roles, boundaries, and handoffs
 - `local/CODING_AGENT.md` — coding-agent evaluation
 - `local/WINDOWS_WORKSTATION.md` — local workstation and Ollama baseline
 - `ado/ADO_INTEGRATION.md` — ADO integration and automation contract
