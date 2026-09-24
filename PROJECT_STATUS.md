@@ -177,10 +177,26 @@ ChatGPT Free is not treated as a free external API endpoint for local agents.
 - Git/GitHub.
 - Azure DevOps access.
 
+### Next active increment
+
+The local Ollama installation already exists on the baseline Windows workstation. The immediate next action is **verification, not installation**.
+
+1. Verify the installed Ollama version.
+2. Record the currently installed local model inventory.
+3. Establish the workstation/GPU resource baseline.
+4. Identify and benchmark candidate local models for the defined agent roles.
+5. Select model-to-role and resource policy from observed results.
+6. Establish controlled local agent execution.
+7. Validate a coding agent against a low-risk real repository task.
+8. Add independent compliance and testing stages.
+9. Document the resulting operating procedure.
+
+The local AI environment should not be expanded into a large execution framework before the Ollama/model baseline is established.
+
 ### Still to establish
 
 - local coding-agent framework;
-- Ollama installation and model selection;
+- Ollama/model verification and benchmark baseline;
 - model-to-role/resource policy;
 - agent permissions and safety boundaries;
 - durable agent handoff format;

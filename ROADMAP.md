@@ -56,9 +56,12 @@
 ### Local inference and tooling
 
 - [ ] Evaluate free/local coding-agent options against the real GitHub/ADO workflow.
-- [ ] Install and validate Ollama on the Windows workstation.
+- [x] Ollama installation exists on the Windows workstation; verification is the next action.
+- [ ] Verify the installed Ollama version and local model inventory.
+- [ ] Establish the workstation/GPU resource baseline.
 - [ ] Evaluate local model suitability on RTX 3060 12 GB.
 - [ ] Define model-to-role and resource policy.
+- [ ] Establish controlled local agent execution.
 - [ ] Establish repeatable Windows workstation setup.
 
 ### Validation
