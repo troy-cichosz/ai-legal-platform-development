@@ -139,24 +139,56 @@ Issue #3 / Increment C is therefore complete. Future work is tracked in Phase 5 
 
 ## Development-Agent / Local-AI State
 
-The intended development loop is local-first:
+The local-AI environment is the next active development increment.
 
-- Windows 11 workstation is the preferred coding-agent host.
-- RTX 3060 12 GB is available for local inference.
-- Ollama is the planned local inference runtime.
-- GitHub Issues provide durable task input.
-- Coding agents inspect repositories, implement scoped issues, run local tests, review diffs, and commit to `chatgpt`.
-- `edge-platform-automation` transports authoritative source into ADO.
-- ADO performs build/deployment/operational verification.
+### Target architecture
 
-Still to establish:
+The workstation will host a reusable local multi-agent development environment using Ollama/local models. It must support both this control-plane repository and the actual AI Legal Platform / edge service repositories.
 
-- coding-agent selection and repeatable operating procedure;
-- Ollama model selection/resource policy;
+The coding model must be capable of repository-scale implementation while preserving the platform's established architecture, invariants, evidence model, temporal model, service boundaries, and overall project goal. Broad unsolicited rewrites are not acceptable.
+
+The planned role separation is:
+
+- **ChatGPT:** architecture, requirements, cross-service reasoning, difficult review, coordination, and human-facing design discussion.
+- **Coding agent:** scoped implementation, local tests, diff inspection, and development-branch commits.
+- **Rules/compliance agent:** independent checks of repository rules, architectural constraints, issue scope, invariants, and documentation requirements.
+- **Testing/review agents:** independent test/result analysis and implementation review where useful.
+- **Human:** architecture authority, environment control, operational confirmation, and final release decisions.
+- **Ollama:** local inference layer for the local agents.
+
+The rules/compliance layer is intentionally independent of the coding model so adherence is checked rather than assumed.
+
+### Cost boundary
+
+The base workflow must remain usable at **$0 incremental AI cost**:
+
+- ChatGPT Free may be used interactively for architecture/reasoning.
+- Local agents use Ollama/local models.
+- The workflow must not require OpenAI API calls.
+- The workflow must not require a paid hosted coding-agent subscription.
+
+ChatGPT Free is not treated as a free external API endpoint for local agents.
+
+### Current hardware baseline
+
+- Windows 11 workstation.
+- RTX 3060 12 GB.
+- VS Code.
+- Git/GitHub.
+- Azure DevOps access.
+
+### Still to establish
+
+- local coding-agent framework;
+- Ollama installation and model selection;
+- model-to-role/resource policy;
 - agent permissions and safety boundaries;
-- standard issue/PR templates and labels;
-- automated runtime/integration verification;
-- exact long-term controlled `chatgpt` → `public` promotion mechanism.
+- durable agent handoff format;
+- independent rules/compliance gate;
+- low-risk real-repository validation;
+- reuse of the same environment against the actual edge repositories.
+
+Automated runtime/integration verification and exact long-term controlled `chatgpt` → `public` promotion remain later process work.
 
 ## Recovery Rule
 
