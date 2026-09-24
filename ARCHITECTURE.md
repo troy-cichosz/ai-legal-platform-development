@@ -15,8 +15,16 @@ This repository is the control plane for the development process, not the runtim
              Issues / branches / PRs / docs
                            |
                            v
-                 LOCAL CODING AGENT
-                 Windows + local AI
+                 LOCAL AI AGENT SYSTEM
+                 Windows + Ollama
+                           |
+              +------------+------------+
+              |            |            |
+              v            v            v
+           CODING       RULES/        TEST/
+           AGENT       COMPLIANCE     REVIEW
+              |            |            |
+              +------------+------------+
                            |
                            v
                     GitHub chatgpt
