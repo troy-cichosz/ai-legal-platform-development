@@ -67,7 +67,7 @@
 
 ### Increment C — Expand and Harden
 
-**Status:** IMPLEMENTED; TARGETED HARDENING VERIFICATION REMAINS
+**Status:** COMPLETE — VALIDATED
 
 **Build/deploy services:**
 
@@ -97,14 +97,16 @@ Completed implementation/verification:
 - [x] Verify successful controlled `chatgpt` runs across the covered repositories.
 - [x] Preserve harmless handling of non-`chatgpt` events in the automation definition.
 
-Targeted verification still to record explicitly:
+Validated outcomes:
 
-- [ ] Complete-tree deletion propagation.
-- [ ] Idempotent synchronization of unchanged source.
-- [ ] Non-`chatgpt` webhook no-op execution.
-- [ ] `edge-platform-automation` recursion-boundary execution.
-- [ ] GitHub SHA → ADO SHA correlation across representative post-expansion runs.
-- [ ] Final documentation audit and closure of Issue #3.
+- [x] Complete-tree deletion propagation.
+- [x] Idempotent synchronization of unchanged source.
+- [x] Non-`chatgpt` webhook no-op execution.
+- [x] `edge-platform-automation` recursion-boundary execution.
+- [x] GitHub SHA → ADO SHA correlation across the covered repositories.
+- [x] Final documentation audit and closure of Issue #3.
+
+A controlled `edge-audio` `chatgpt` source change also verified the changed-source downstream path through synchronization, the existing ADO CI/CD pipelines, and GitHub `public` maintenance.
 
 ## Phase 5 — Automated Integration Verification
 
