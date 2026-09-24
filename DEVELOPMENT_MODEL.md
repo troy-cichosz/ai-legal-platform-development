@@ -41,7 +41,7 @@ The model must preserve human control over architectural decisions and operation
 8. GitHub chatgpt push triggers edge-platform-automation
         |
         v
-8. Automation synchronizes source into matching ADO repository/chatgpt
+9. Automation synchronizes source into matching ADO repository/chatgpt
         |
         v
 9. Build-service repositories enter existing ADO service CI/CD;
