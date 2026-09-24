@@ -48,7 +48,7 @@ The model must preserve human control over architectural decisions and operation
     sync-only repositories enter their public-maintenance pipeline
         |
         v
-10. Runtime / integration / failure-recovery verification
+11. Runtime / integration / failure-recovery verification
         |
         v
 11. Documentation completion audit
