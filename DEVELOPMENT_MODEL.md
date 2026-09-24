@@ -44,8 +44,8 @@ The model must preserve human control over architectural decisions and operation
 9. Automation synchronizes source into matching ADO repository/chatgpt
         |
         v
-9. Build-service repositories enter existing ADO service CI/CD;
-   sync-only repositories enter their public-maintenance pipeline
+10. Build-service repositories enter existing ADO service CI/CD;
+    sync-only repositories enter their public-maintenance pipeline
         |
         v
 10. Runtime / integration / failure-recovery verification
