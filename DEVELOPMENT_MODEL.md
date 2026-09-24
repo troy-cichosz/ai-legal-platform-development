@@ -51,7 +51,7 @@ The model must preserve human control over architectural decisions and operation
 11. Runtime / integration / failure-recovery verification
         |
         v
-11. Documentation completion audit
+12. Documentation completion audit
         |
         v
 12. Verified state becomes eligible for controlled public promotion
