@@ -15,8 +15,12 @@ Human / ChatGPT architecture and review
 GitHub Issues / branches / pull requests
         |
         v
-Local coding agent + local AI inference
+Local multi-agent development environment
 Windows workstation / Ollama
+        |
+        +--> coding agent
+        +--> independent rules/compliance review
+        +--> testing/review agents
         |
         v
 GitHub chatgpt
