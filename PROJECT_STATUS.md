@@ -104,7 +104,7 @@ The pilot demonstrated:
 **GitHub Issue:** #3  
 **Status:** CORE SYNCHRONIZATION IMPLEMENTED AND END-TO-END RUNS VERIFIED
 
-The automation registry now covers all seven current project repositories:
+The automation registry now covers all eight current project repositories:
 
 | Repository | Class | ADO mirror | Downstream behavior |
 |---|---|---|---|
@@ -115,6 +115,7 @@ The automation registry now covers all seven current project repositories:
 | `edge-audio` | `build_service` | `chatgpt` | Existing service CI/CD |
 | `ai-legal-platform-development` | `sync_only` | `chatgpt` | Public-maintenance pipeline |
 | `edge-platform-automation` | `sync_only` | `chatgpt` | Public-maintenance pipeline |
+| `edge-ai` | `sync_only` | `chatgpt` | Public-maintenance pipeline |
 
 The implemented workflow now provides:
 
@@ -129,7 +130,7 @@ The implemented workflow now provides:
 - an explicit recursion boundary because only `chatgpt` webhook events are accepted by the automation pipeline;
 - existing service CI/CD definitions remain unchanged.
 
-The expanded workflow has been validated across all seven covered repositories. The validation established the intended repository classifications, exact GitHub `chatgpt` SHA acceptance, ADO mirror targeting, idempotent behavior for unchanged source, complete-tree deletion propagation, harmless handling of non-`chatgpt` events, the `edge-platform-automation` recursion boundary, and GitHub SHA → ADO synchronization SHA correlation.
+The expanded workflow has been validated across all eight covered repositories. The validation established the intended repository classifications, exact GitHub `chatgpt` SHA acceptance, ADO mirror targeting, idempotent behavior for unchanged source, complete-tree deletion propagation, harmless handling of non-`chatgpt` events, the `edge-platform-automation` recursion boundary, and GitHub SHA → ADO synchronization SHA correlation.
 
 A controlled `edge-audio` `chatgpt` source change additionally verified the changed-source downstream path through ADO synchronization, the existing ADO CI/CD pipelines, and the resulting GitHub `public` maintenance.
 
