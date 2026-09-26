@@ -6,7 +6,7 @@ Azure DevOps remains the CI/CD and operational verification authority.
 
 The existing self-hosted agents, registry, scanning, and deployment environment should be reused where practical rather than duplicated.
 
-## Existing Pipeline Baseline — Reviewed September 22, 2026
+## Existing Pipeline Baseline - Reviewed September 22, 2026
 
 The current `azure-pipelines.yaml` files were reviewed from the `public` branches of all five edge repositories:
 
@@ -69,7 +69,7 @@ GitHub `chatgpt` is authoritative for source and history. ADO `chatgpt` is an op
 | `troy-cichosz/ai-legal-platform-development` | `sync_only` | `Docker` | `ai-legal-platform-development` | `chatgpt` | `azure-pipelines.yaml` public maintenance |
 | `troy-cichosz/edge-platform-automation` | `sync_only` | `Docker` | `edge-platform-automation` | `chatgpt` | `azure-pipelines.yaml` public maintenance |
 
-## Increment B — Verified Pilot
+## Increment B - Verified Pilot
 
 The `edge-gps` pilot proved:
 
@@ -83,7 +83,7 @@ The `edge-gps` pilot proved:
 8. Existing service CI/CD remains unchanged.
 9. The authoritative source must contain the required service pipeline definition before complete-tree synchronization.
 
-## Increment C — Expansion and Hardening
+## Increment C - Expansion and Hardening
 
 Increment C expands the pilot to all seven covered repositories.
 
@@ -99,7 +99,7 @@ Implemented:
 - explicit recursion boundary for `edge-platform-automation`;
 - preservation of existing service CI/CD.
 
-The expanded workflow has been validated across all seven covered repositories. Validation established exact GitHub `chatgpt` SHA handling, correct repository classification and ADO targeting, idempotent synchronization, complete-tree deletion propagation, non-`chatgpt` no-op behavior, the explicit `edge-platform-automation` recursion boundary, and GitHub SHA → ADO synchronization SHA correlation.
+The expanded workflow has been validated across all seven covered repositories. Validation established exact GitHub `chatgpt` SHA handling, correct repository classification and ADO targeting, idempotent synchronization, complete-tree deletion propagation, non-`chatgpt` no-op behavior, the explicit `edge-platform-automation` recursion boundary, and GitHub SHA -> ADO synchronization SHA correlation.
 
 A controlled `edge-audio` `chatgpt` change also verified that a changed ADO mirror triggers the existing service CI/CD path and the downstream GitHub `public` maintenance.
 

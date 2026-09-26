@@ -1,7 +1,7 @@
 # Project Status
 
 **Repository:** `ai-legal-platform-development`  
-**Current phase:** Phase 3 — Local Multi-Agent AI Development Environment  
+**Current phase:** Phase 3 - Local Multi-Agent AI Development Environment  
 **Status:** Phase 4 automation complete; local multi-agent environment is the active next increment  
 **Last reviewed:** September 24, 2026
 
@@ -82,7 +82,7 @@ runtime / public maintenance
 
 GitHub `chatgpt` remains authoritative. ADO `chatgpt` branches are operational mirrors.
 
-### Increment B — Pilot Result
+### Increment B - Pilot Result
 
 **Pilot:** `edge-gps`  
 **Status:** VERIFIED END-TO-END
@@ -99,7 +99,7 @@ The pilot demonstrated:
 - Existing service CI/CD remains unchanged.
 - The service's required pipeline definition must exist in authoritative GitHub source because complete-tree synchronization removes files absent from GitHub.
 
-### Increment C — Expansion and Hardening
+### Increment C - Expansion and Hardening
 
 **GitHub Issue:** #3  
 **Status:** CORE SYNCHRONIZATION IMPLEMENTED AND END-TO-END RUNS VERIFIED
@@ -130,7 +130,7 @@ The implemented workflow now provides:
 - an explicit recursion boundary because only `chatgpt` webhook events are accepted by the automation pipeline;
 - existing service CI/CD definitions remain unchanged.
 
-The expanded workflow has been validated across all eight covered repositories. The validation established the intended repository classifications, exact GitHub `chatgpt` SHA acceptance, ADO mirror targeting, idempotent behavior for unchanged source, complete-tree deletion propagation, harmless handling of non-`chatgpt` events, the `edge-platform-automation` recursion boundary, and GitHub SHA → ADO synchronization SHA correlation.
+The expanded workflow has been validated across all eight covered repositories. The validation established the intended repository classifications, exact GitHub `chatgpt` SHA acceptance, ADO mirror targeting, idempotent behavior for unchanged source, complete-tree deletion propagation, harmless handling of non-`chatgpt` events, the `edge-platform-automation` recursion boundary, and GitHub SHA -> ADO synchronization SHA correlation.
 
 A controlled `edge-audio` `chatgpt` source change additionally verified the changed-source downstream path through ADO synchronization, the existing ADO CI/CD pipelines, and the resulting GitHub `public` maintenance.
 
@@ -205,7 +205,7 @@ The local AI environment should not be expanded into a large execution framework
 - low-risk real-repository validation;
 - reuse of the same environment against the actual edge repositories.
 
-Automated runtime/integration verification and exact long-term controlled `chatgpt` → `public` promotion remain later process work.
+Automated runtime/integration verification and exact long-term controlled `chatgpt` -> `public` promotion remain later process work.
 
 ## Recovery Rule
 

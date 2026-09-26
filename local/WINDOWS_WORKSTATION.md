@@ -38,7 +38,7 @@ The RTX 3060 is available for local model inference.
 
 Ollama is the planned local inference runtime.
 
-Model selection must be based on repository-scale coding quality, instruction adherence, context handling, and resource usage—not merely whether a model fits in VRAM.
+Model selection must be based on repository-scale coding quality, instruction adherence, context handling, and resource usage-not merely whether a model fits in VRAM.
 
 The local environment must support role separation between coding and independent rules/compliance/testing review.
 

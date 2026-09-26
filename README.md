@@ -70,12 +70,12 @@ Across the platform repositories:
 
 ## Current Process Effort
 
-**Phase:** 4 — GitHub → ADO Automation  
-**Status:** VERIFIED — Increment C complete
+**Phase:** 4 - GitHub -> ADO Automation  
+**Status:** VERIFIED - Increment C complete
 
-Increment B, using `edge-gps` as the pilot, demonstrated the end-to-end GitHub `chatgpt` → webhook → automation → ADO `chatgpt` → existing service CI/CD path.
+Increment B, using `edge-gps` as the pilot, demonstrated the end-to-end GitHub `chatgpt` -> webhook -> automation -> ADO `chatgpt` -> existing service CI/CD path.
 
-Increment C expanded and hardened the automation registry across all seven current project repositories. The synchronization path has now been validated across the full registry, including exact-SHA synchronization, idempotence, complete-tree deletion propagation, non-`chatgpt` no-op handling, recursion-boundary behavior, and GitHub SHA → ADO synchronization SHA correlation.
+Increment C expanded and hardened the automation registry across all seven current project repositories. The synchronization path has now been validated across the full registry, including exact-SHA synchronization, idempotence, complete-tree deletion propagation, non-`chatgpt` no-op handling, recursion-boundary behavior, and GitHub SHA -> ADO synchronization SHA correlation.
 
 A controlled `edge-audio` `chatgpt` change also verified the changed-source downstream path through ADO synchronization, existing CI/CD, and the resulting GitHub `public` maintenance.
 
@@ -83,16 +83,16 @@ The automation increment is complete. Future work moves to the later process pha
 
 See:
 
-- `PROJECT_STATUS.md` — current process state and recovery point
-- `DEVELOPMENT_MODEL.md` — normal development lifecycle and responsibilities
-- `ARCHITECTURE.md` — process architecture and system boundaries
-- `DECISIONS.md` — durable decisions
-- `ROADMAP.md` — implementation phases
-- `agents/AGENTS.md` — coding-agent operating contract
-- `agents/AGENT_ARCHITECTURE.md` — local multi-agent roles, boundaries, and handoffs
-- `local/CODING_AGENT.md` — coding-agent evaluation
-- `local/WINDOWS_WORKSTATION.md` — local workstation and Ollama baseline
-- `ado/ADO_INTEGRATION.md` — ADO integration and automation contract
+- `PROJECT_STATUS.md` - current process state and recovery point
+- `DEVELOPMENT_MODEL.md` - normal development lifecycle and responsibilities
+- `ARCHITECTURE.md` - process architecture and system boundaries
+- `DECISIONS.md` - durable decisions
+- `ROADMAP.md` - implementation phases
+- `agents/AGENTS.md` - coding-agent operating contract
+- `agents/AGENT_ARCHITECTURE.md` - local multi-agent roles, boundaries, and handoffs
+- `local/CODING_AGENT.md` - coding-agent evaluation
+- `local/WINDOWS_WORKSTATION.md` - local workstation and Ollama baseline
+- `ado/ADO_INTEGRATION.md` - ADO integration and automation contract
 
 ## Scope Boundary
 

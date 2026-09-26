@@ -109,6 +109,6 @@ Before the local environment becomes the normal development path:
 7. Review the diff for unwanted scope expansion.
 8. Verify tests and limitations.
 9. Commit to `chatgpt`.
-10. Confirm GitHub → ADO automation remains unchanged and functional.
+10. Confirm GitHub -> ADO automation remains unchanged and functional.
 11. Repeat against an actual edge repository.
 12. Document the operating procedure and model/resource policy.

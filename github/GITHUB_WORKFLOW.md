@@ -7,7 +7,7 @@ chatgpt = primary working branch
 public  = release candidate / last-known-good release state
 ```
 
-## Issue → Implementation
+## Issue -> Implementation
 
 A development increment should begin with a GitHub Issue describing:
 
@@ -37,7 +37,7 @@ PRs should identify:
 
 PR approval is not a substitute for runtime verification.
 
-## GitHub → ADO Trigger
+## GitHub -> ADO Trigger
 
 The approved migration path is:
 

@@ -184,7 +184,7 @@ The migration deliberately preserves the existing service CI/CD.
 8. Runtime verification remains separate from successful build/deployment.
 9. ADO mirror history is not authoritative.
 10. Only `chatgpt` events are accepted by the synchronization automation, providing the recursion boundary for `edge-platform-automation`.
-11. The long-term `chatgpt` → `public` promotion mechanism remains a separate process concern.
+11. The long-term `chatgpt` -> `public` promotion mechanism remains a separate process concern.
 
 ## Documentation
 
