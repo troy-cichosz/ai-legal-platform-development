@@ -142,6 +142,8 @@ Issue #3 / Increment C is therefore complete. Future work is tracked in Phase 5 
 
 The local-AI environment is the next active development increment.
 
+The immediate objective is not merely to benchmark individual models. It is to establish a practical local development agent that can continue the existing AI Legal Platform edge-platform work from the real repository and project state. The first capability target is reliable Python development with architecture-aware repository comprehension, testing/debugging, documentation discipline, and accurate validation reporting. Legal-AI workloads remain a later use of the same local AI environment.
+
 ### Target architecture
 
 The workstation will host a reusable local multi-agent development environment using Ollama/local models. It must support both this control-plane repository and the actual AI Legal Platform / edge service repositories.
@@ -180,7 +182,7 @@ ChatGPT Free is not treated as a free external API endpoint for local agents.
 
 ### Next active increment
 
-The local Ollama installation already exists on the baseline Windows workstation. The immediate next action is **verification, not installation**.
+The local Ollama installation already exists on the baseline Windows workstation. The immediate next action is **verification, not installation**. Model selection remains pending until the development-agent requirements are tested against representative repository work.
 
 1. Verify the installed Ollama version.
 2. Record the currently installed local model inventory.

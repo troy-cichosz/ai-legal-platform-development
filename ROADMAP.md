@@ -67,6 +67,13 @@
 ### Validation
 
 - [ ] Validate repository instruction discovery and adherence.
+- [ ] Validate continuation from the current project state and authoritative repository history.
+- [ ] Validate Python implementation on representative real edge-service tasks.
+- [ ] Validate multi-file and cross-repository changes while preserving service boundaries and architecture.
+- [ ] Validate testing, debugging, diff inspection, and honest validation reporting.
+- [ ] Validate documentation and project/status updates without silently redefining project state.
+- [ ] Validate human acceptance remains the release boundary.
+- [ ] Demonstrate development-agent capability using representative real repository work rather than model size, reputation, or raw token throughput.
 - [ ] Validate implementation quality on a low-risk real repository change.
 - [ ] Validate independent rules/compliance review against the same change.
 - [ ] Validate local test execution and diff review.
@@ -74,6 +81,10 @@
 - [ ] Validate the same environment against an actual edge service repository.
 - [ ] Confirm the environment preserves the established AI Legal Platform / edge architecture and does not introduce broad unsolicited rewrites.
 - [ ] Document the resulting operating procedure.
+
+### Development-Agent Acceptance Boundary
+
+The Phase 3 objective is to validate a local development agent capable of continuing the actual edge-platform development workflow at the required quality level. This is separate from the later legal-AI capability objective. The same workstation may host both workloads, but legal-AI requirements do not determine the current development-agent model selection.
 
 ## Phase 4 - GitHub -> ADO Automation
 

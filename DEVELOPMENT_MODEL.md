@@ -10,6 +10,8 @@ The local environment must be reusable for both this development-process reposit
 
 The coding model is expected to perform repository-scale implementation with architectural fidelity suitable for this project. It must preserve existing working behavior and project goals and must not perform broad unsolicited rewrites.
 
+The current target is practical development-agent capability: the agent must be able to pick up an existing repository and project state and continue the work from authoritative documentation, current source, issue/task scope, and relevant history. Python implementation is a first-class requirement because the edge services are currently Python-based. The capability must extend beyond isolated coding to multi-file and cross-repository changes, testing/debugging, documentation updates, and accurate development-state reporting.
+
 The model itself is not the sole rule-enforcement mechanism. Independent compliance and review roles are part of the design.
 
 The model must preserve human control over architectural decisions and operational verification.
@@ -66,6 +68,7 @@ The coding agent is responsible for repository-scale mechanical work. Ollama pro
 The local agent workflow must:
 
 - take a GitHub Issue as durable task input;
+- establish the current project/repository state and relevant authoritative history before editing;
 - read repository-specific instructions before editing;
 - inspect actual source and current branch state;
 - implement only the approved scope;
@@ -91,6 +94,10 @@ Architecture, cross-service contracts, evidence semantics, temporal authority, a
 - Identification of contradictions or architectural drift.
 
 ChatGPT should not invent current implementation state when GitHub or runtime evidence is available.
+
+### Development-State Continuity
+
+When continuing an existing increment, the agent must treat current repository state and authoritative project/status documentation as the starting point. It must distinguish verified state from planned or historical state and must not silently rewrite project scope, architecture, or status. If the task requires a cross-repository contract or a change to authoritative project state, it must escalate or follow the explicitly defined project-management step rather than inventing a new direction.
 
 ### Coding Agent
 

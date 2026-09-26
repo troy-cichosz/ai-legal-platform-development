@@ -112,6 +112,18 @@ The development process may use ChatGPT Free interactively, but local agents mus
 
 The base workflow must continue to function using local Ollama inference without OpenAI API calls.
 
+## D-014 - Development-Agent Replacement Objective
+
+**Status:** Accepted
+
+The immediate local-AI objective is to establish whether a local development agent can reliably continue the actual AI Legal Platform edge-platform development work currently performed through the ChatGPT collaboration, at ChatGPT-level or better for the required development tasks.
+
+Evaluation is based on representative real repository work: Python implementation, repository comprehension, architecture preservation, testing and debugging, documentation accuracy, project-state continuity, cross-repository consistency, validation discipline, and honest reporting. Model size, vendor reputation, or raw token throughput is not a substitute for successful development work.
+
+The same workstation and local inference environment may later be reused for legal-AI workloads. That later workload is a separate capability objective and must not distort the current development-agent evaluation.
+
+The coding agent remains subject to independent compliance/testing review and human acceptance. It does not independently redefine project architecture, authoritative project state, or release decisions.
+
 ## Source-Controlled Text Encoding
 
 All source-controlled text files must contain ASCII characters only. Non-ASCII Unicode characters, Unicode punctuation, Unicode symbols, and emojis are prohibited. Agents and development tooling must use deterministic UTF-8 handling when reading and writing files and must verify that source-controlled text remains ASCII-only before commit.
