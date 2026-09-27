@@ -124,6 +124,16 @@ The same workstation and local inference environment may later be reused for leg
 
 The coding agent remains subject to independent compliance/testing review and human acceptance. It does not independently redefine project architecture, authoritative project state, or release decisions.
 
+## D-015 - Prefer Established Coding-Agent Frameworks Before Bespoke Infrastructure
+
+**Status:** Accepted
+
+When a repository-oriented coding-agent framework can satisfy the required local development workflow, evaluate and use an established framework before extending or replacing it with bespoke agent infrastructure.
+
+The first framework under evaluation is Aider, using local Ollama inference. The bespoke PowerShell runner remains useful as benchmark and harness history, but its transport/tooling limitations are not a reason by themselves to expand custom infrastructure.
+
+Framework selection does not select a model or role default. Coding-agent results remain subject to repository rules, independent compliance/testing review, human acceptance, and the GitHub `chatgpt` development workflow. Agents must not push GitHub `public` directly.
+
 ## Source-Controlled Text Encoding
 
 All source-controlled text files must contain ASCII characters only. Non-ASCII Unicode characters, Unicode punctuation, Unicode symbols, and emojis are prohibited. Agents and development tooling must use deterministic UTF-8 handling when reading and writing files and must verify that source-controlled text remains ASCII-only before commit.

@@ -59,6 +59,14 @@ The model must preserve human control over architectural decisions and operation
 12. Verified state becomes eligible for controlled public promotion
 ```
 
+## Coding-Agent Framework Selection
+
+Use an established repository-oriented coding-agent framework before building equivalent bespoke infrastructure when the framework can satisfy the required workflow. The first framework under evaluation is Aider with local Ollama inference.
+
+The framework and model are evaluated as an end-to-end development-agent combination. Acceptance requires correct implementation, focused tests, preservation of unrelated content, scoped changes, required validation, documentation accuracy, ASCII compliance, and accurate reporting. A framework's ability to edit files does not by itself establish development-agent suitability.
+
+Failed benchmark worktrees are disposable evidence and must not be repaired and promoted as benchmark successes. Independent compliance/testing review remains separate from the coding agent, and human acceptance remains required.
+
 ## Local Agent + AI Boundary
 
 The local workstation is the implementation environment.

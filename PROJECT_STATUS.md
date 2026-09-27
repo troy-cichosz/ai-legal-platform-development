@@ -3,7 +3,7 @@
 **Repository:** `ai-legal-platform-development`  
 **Current phase:** Phase 3 - Local Multi-Agent AI Development Environment  
 **Status:** Phase 4 automation complete; local multi-agent environment is the active next increment  
-**Last reviewed:** September 24, 2026
+**Last reviewed:** September 27, 2026
 
 ## Authoritative Sources
 
@@ -140,7 +140,7 @@ Issue #3 / Increment C is therefore complete. Future work is tracked in Phase 5 
 
 ## Development-Agent / Local-AI State
 
-The local-AI environment is the next active development increment.
+The local-AI environment is the active development increment. The coding-agent framework evaluation has now moved from the bespoke runner to Aider for substantive repository work.
 
 The immediate objective is not merely to benchmark individual models. It is to establish a practical local development agent that can continue the existing AI Legal Platform edge-platform work from the real repository and project state. The first capability target is reliable Python development with architecture-aware repository comprehension, testing/debugging, documentation discipline, and accurate validation reporting. Legal-AI workloads remain a later use of the same local AI environment.
 
@@ -179,6 +179,14 @@ ChatGPT Free is not treated as a free external API endpoint for local agents.
 - VS Code.
 - Git/GitHub.
 - Azure DevOps access.
+
+### Coding-Agent Framework Evaluation
+
+The bespoke runner established controlled harness history but encountered transport/tooling limitations during substantive Python task evaluation. Before extending that custom infrastructure further, the process moved to Aider as the first established repository-oriented coding-agent framework candidate.
+
+The first Aider substantive run used gpt-oss:20b against TASK-PY-003 in a disposable edge-video worktree. The production change was directionally correct, but the generated tests were defective, the requested validation was not demonstrated, an unrelated .gitignore was introduced, and a non-ASCII character violated the repository text policy. Independent pytest execution produced two failures. The result is recorded in edge-ai BENCHMARK.md and is not an accepted implementation.
+
+The current framework state is therefore: **Aider under evaluation; no coding-agent model or role default selected.** The next benchmark run must start from a clean disposable worktree and must preserve independent validation and the no-public-push boundary.
 
 ### Next active increment
 
