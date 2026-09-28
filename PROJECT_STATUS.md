@@ -190,6 +190,8 @@ The next Aider substantive run used qwen3:14b against TASK-PY-003 in a clean dis
 
 The current framework state is therefore: **Aider under evaluation; no coding-agent model or role default selected.** The next benchmark run must start from a clean disposable worktree and must preserve independent validation and the no-public-push boundary.
 
+The next Aider substantive run used devstral-small-2:latest against TASK-PY-004 in a clean disposable edge-video worktree. The agent progressed into implementation and testing, but the end-to-end result failed acceptance. Independent pytest execution produced 2 failed and 2 passed tests because the startup-failure and process-exit tests did not correctly exercise the requested production paths. The run also introduced an unrelated change from `stdin=subprocess.DEVNULL` to `stdin=subprocess.PIPE` for the capture process and unrelated formatting changes. ASCII checks passed for the changed source files. The agent was stopped before completing its repair and final validation cycle. The disposable worktree was reset and cleaned, and no benchmark implementation was promoted to `chatgpt` or `public`. The result is recorded in edge-ai BENCHMARK.md as a failed TASK-PY-004 run. No benchmark implementation is accepted.
+
 ### Next active increment
 
 The local Ollama installation already exists on the baseline Windows workstation. The immediate next action is **verification, not installation**. Model selection remains pending until the development-agent requirements are tested against representative repository work.
