@@ -3,7 +3,7 @@
 **Repository:** `ai-legal-platform-development`  
 **Current phase:** Phase 3 - Local Multi-Agent AI Development Environment  
 **Status:** Phase 4 automation complete; local multi-agent environment is the active next increment  
-**Last reviewed:** September 27, 2026
+**Last reviewed:** September 28, 2026
 
 ## Authoritative Sources
 
@@ -118,7 +118,6 @@ The automation registry now covers all eight current project repositories:
 | `edge-ai` | `sync_only` | `chatgpt` | Public-maintenance pipeline |
 
 The implemented workflow now provides:
-
 - complete-tree synchronization;
 - exact GitHub SHA checkout and verification;
 - matching ADO `chatgpt` repository synchronization;
@@ -194,6 +193,9 @@ The subsequent Aider/qwen3:14b TASK-PY-003 run was also unsuccessful end-to-end.
 The current framework state is therefore: **Aider under evaluation; no coding-agent model or role default selected.** The next benchmark run must start from a clean disposable worktree and must preserve independent validation and the no-public-push boundary.
 
 The next Aider substantive run used devstral-small-2:latest against TASK-PY-004 in a clean disposable edge-video worktree. The agent progressed into implementation and testing, but the end-to-end result failed acceptance. Independent pytest execution produced 2 failed and 2 passed tests because the startup-failure and process-exit tests did not correctly exercise the requested production paths. The run also introduced an unrelated change from `stdin=subprocess.DEVNULL` to `stdin=subprocess.PIPE` for the capture process and unrelated formatting changes. ASCII checks passed for the changed source files. The agent was stopped before completing its repair and final validation cycle. The disposable worktree was reset and cleaned, and no benchmark implementation was promoted to `chatgpt` or `public`. The result is recorded in edge-ai BENCHMARK.md as a failed TASK-PY-004 run. No benchmark implementation is accepted.
+
+
+The subsequent Aider/gpt-oss:20b TASK-PY-004 run was completed from clean disposable edge-video baseline commit b1554cffb13b76cc6944c4cd92609e54b405adca. Independent inspection found that app/media.py contained the three intended live-branch disabling changes and no unrelated production changes. The generated tests reported 4 passed independently, but the coverage was incomplete: there was no separate OSError test, the failure tests did not prove that evidence continued receiving subsequent chunks after live failure, and they did not prove that the failed live pipe received no later writes. Pytest also emitted one PytestCollectionWarning because the helper dataclass was named TestConfig. git diff --check and ASCII validation passed for the tracked production diff. Aider did not demonstrate the required final complete-file inspection, final diff review, ASCII check, changed-file verification, or exact final report, and its final summarization failed. The run is therefore recorded as a failed TASK-PY-004 end-to-end result. The production implementation itself was correct and minimally scoped, but the complete development-agent task was not accepted. The disposable worktree was not promoted to chatgpt or public.
 
 ### Next active increment
 
