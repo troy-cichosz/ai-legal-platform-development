@@ -16,7 +16,7 @@ jobs:
   - job: BuildAndPush
     displayName: 'Build and Push Docker Images'
     pool:
-      name: 'Linux ARM 64bit' #'Linux x86 64bit'
+      name: 'Linux x86 64bit' #'Linux x86 64bit'
     steps:
       - task: Bash@3
         displayName: 'Read Tags from Version Files'
