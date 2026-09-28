@@ -204,30 +204,28 @@ Result: **Failed TASK-PY-004.** The run did not satisfy the required implementat
 
 ### Next active increment
 
-The local Ollama installation already exists on the baseline Windows workstation. The immediate next action is **verification, not installation**. Model selection remains pending until the development-agent requirements are tested against representative repository work.
+The Ollama baseline and initial local model inventory are established, and Aider is the active coding-agent framework under evaluation. The immediate next action is continued controlled development-agent benchmarking from clean disposable worktrees.
 
-1. Verify the installed Ollama version.
-2. Record the currently installed local model inventory.
-3. Establish the workstation/GPU resource baseline.
-4. Identify and benchmark candidate local models for the defined agent roles.
-5. Select model-to-role and resource policy from observed results.
-6. Establish controlled local agent execution.
-7. Validate a coding agent against a low-risk real repository task.
-8. Add independent compliance and testing stages.
-9. Document the resulting operating procedure.
+1. Continue representative repository-task benchmarking with Aider and the available local models.
+2. Use independent inspection and testing to validate every benchmark result.
+3. Evaluate repository comprehension, Python implementation, architecture preservation, focused testing, diff discipline, ASCII compliance, and accurate validation reporting.
+4. Evaluate additional candidates, including qwen3-coder:30b when appropriate for the workstation.
+5. Select model-to-role and resource policy only after sufficient representative evidence and independent review.
+6. Establish the independent rules/compliance and testing/review stages after the coding-agent framework/model evaluation is sufficiently mature.
+7. Validate the accepted development-agent workflow against the actual edge repositories.
+8. Document the resulting operating procedure.
 
-The local AI environment should not be expanded into a large execution framework before the Ollama/model baseline is established.
+No failed benchmark implementation is to be repaired and promoted as a benchmark success. No benchmark implementation is to be promoted to `chatgpt` or `public` without the normal acceptance workflow.
 
 ### Still to establish
 
-- local coding-agent framework;
-- Ollama/model verification and benchmark baseline;
 - model-to-role/resource policy;
 - agent permissions and safety boundaries;
 - durable agent handoff format;
 - independent rules/compliance gate;
-- low-risk real-repository validation;
-- reuse of the same environment against the actual edge repositories.
+- independent testing/review stage;
+- low-risk accepted real-repository validation;
+- reuse of the accepted environment against the actual edge repositories.
 
 Automated runtime/integration verification and exact long-term controlled `chatgpt` -> `public` promotion remain later process work.
 
