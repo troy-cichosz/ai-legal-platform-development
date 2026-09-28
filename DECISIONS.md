@@ -134,6 +134,18 @@ The first framework under evaluation is Aider, using local Ollama inference. The
 
 Framework selection does not select a model or role default. Coding-agent results remain subject to repository rules, independent compliance/testing review, human acceptance, and the GitHub `chatgpt` development workflow. Agents must not push GitHub `public` directly.
 
+## D-016 - Framework-First Local Agent Selection
+
+**Status:** Accepted
+
+Use an established free/open-source repository-oriented coding-agent framework before extending or replacing the local development workflow with bespoke agent infrastructure, provided the framework fits the Windows workstation, Ollama, Git/repository instructions, testing, permissions, and project control boundaries.
+
+Framework selection precedes model optimization. Local models are evaluated as part of the selected framework configuration rather than as isolated rankings.
+
+Deterministic repository, branch, permission, and release controls must enforce hard boundaries. The coding model is not the sole authority for project-rule compliance or acceptance. Independent testing/compliance review and human acceptance remain required.
+
+The initial framework discovery set includes Aider, Cline, Roo Code, Continue, and OpenHands. Aider is the first active framework evaluation, not a final selection. When using Aider for tasks that prohibit agent-created commits, its no-auto-commits configuration must be used.
+
 ## Source-Controlled Text Encoding
 
 All source-controlled text files must contain ASCII characters only. Non-ASCII Unicode characters, Unicode punctuation, Unicode symbols, and emojis are prohibited. Agents and development tooling must use deterministic UTF-8 handling when reading and writing files and must verify that source-controlled text remains ASCII-only before commit.

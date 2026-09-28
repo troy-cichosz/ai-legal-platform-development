@@ -181,41 +181,38 @@ ChatGPT Free is not treated as a free external API endpoint for local agents.
 
 ### Coding-Agent Framework Evaluation
 
-The bespoke runner established controlled harness history but encountered transport/tooling limitations during substantive Python task evaluation. Before extending that custom infrastructure further, the process moved to Aider as the first established repository-oriented coding-agent framework candidate.
+The local-AI environment is the active development increment. The substantive evaluation is now framework-first: use an established free/local repository-oriented coding-agent framework before expanding bespoke infrastructure.
 
-The first Aider substantive run used gpt-oss:20b against TASK-PY-003 in a disposable edge-video worktree. The production change was directionally correct, but the generated tests were defective, the requested validation was not demonstrated, an unrelated .gitignore was introduced, and a non-ASCII character violated the repository text policy. Independent pytest execution produced two failures. The result is recorded in edge-ai BENCHMARK.md and is not an accepted implementation.
-The next Aider substantive run used qwen3:14b against TASK-PY-003 in a clean disposable edge-video worktree. The model identified the required live-branch failure boundary, but the end-to-end result failed acceptance. The production edit corrupted the recording format string by changing "h264" to "h26线" and therefore violated both functional scope and the ASCII-only source policy. The generated test coverage manually set the failure flag instead of exercising an actual live failure and did not cover the four requested behaviors. Aider reported one passing test, but that test did not validate the requested failure path. The transcript did not demonstrate the required final diff or git diff --check validation, and Aider also added its .aider* ignore entry. The result is recorded in edge-ai BENCHMARK.md as a failed TASK-PY-003 run. No benchmark implementation is accepted.
+Aider is the first established framework under active evaluation. No final framework or model default has been selected. Existing Aider/model benchmark results remain historical end-to-end evidence and are not an overall ranking.
 
+The immediate objective is to establish a practical local development agent that can continue the existing AI Legal Platform edge-platform work from the real repository and project state. The workflow must preserve architecture, evidence and temporal models, service boundaries, documentation ownership, project intent, and the chatgpt -> ADO -> public release boundary.
 
-The subsequent Aider/qwen3:14b TASK-PY-003 run was also unsuccessful end-to-end. It started from clean disposable edge-video baseline commit b1554cffb13b76cc6944c4cd92609e54b405adca. The model produced intermediate output reporting four requested tests as passing, but Aider then rejected the model response because it did not conform to the edit format and reported "No filename provided before code block in file listing". The model became stuck while attempting to generate the complete app/media.py edit and was interrupted. Independent inspection showed that app/media.py remained unchanged, tests/test_media.py was not materialized as runnable tests, and independent pytest reported "no tests ran". The disposable worktree was reset and cleaned to b1554cffb13b76cc6944c4cd92609e54b405adca. This is recorded in edge-ai BENCHMARK.md as an Aider/qwen3:14b edit-format/materialization failure, not as evidence that the underlying implementation approach was incorrect. No benchmark implementation was accepted or promoted to chatgpt or public.
+### Target architecture
 
+The workstation will host a reusable local development environment using Ollama/local models. It must support both this control-plane repository and the actual AI Legal Platform / edge repositories.
 
-The current framework state is therefore: **Aider under evaluation; no coding-agent model or role default selected.** The next benchmark run must start from a clean disposable worktree and must preserve independent validation and the no-public-push boundary.
+The role separation remains:
 
-The next Aider substantive run used devstral-small-2:latest against TASK-PY-004 in a clean disposable edge-video worktree. The agent progressed into implementation and testing, but the end-to-end result failed acceptance. Independent pytest execution produced 2 failed and 2 passed tests because the startup-failure and process-exit tests did not correctly exercise the requested production paths. The run also introduced an unrelated change from `stdin=subprocess.DEVNULL` to `stdin=subprocess.PIPE` for the capture process and unrelated formatting changes. ASCII checks passed for the changed source files. The agent was stopped before completing its repair and final validation cycle. The disposable worktree was reset and cleaned, and no benchmark implementation was promoted to `chatgpt` or `public`. The result is recorded in edge-ai BENCHMARK.md as a failed TASK-PY-004 run. No benchmark implementation is accepted.
+- **ChatGPT:** architecture, requirements, cross-service reasoning, difficult review, coordination, and verification planning.
+- **Coding agent:** scoped implementation, local tests, diff inspection, and development-branch work.
+- **Rules/compliance agent:** independent checks of repository rules, architectural constraints, issue scope, invariants, and documentation requirements.
+- **Testing/review agents:** independent test/result analysis and implementation review where useful.
+- **Human:** architecture authority, environment control, operational confirmation, and final release decisions.
+- **Ollama:** local inference layer for the local agents.
 
+### Framework-first qualification path
 
-The subsequent Aider/gpt-oss:20b TASK-PY-004 run was completed from clean disposable edge-video baseline commit b1554cffb13b76cc6944c4cd92609e54b405adca. Independent inspection found that app/media.py contained the three intended live-branch disabling changes and no unrelated production changes. The generated tests reported 4 passed independently, but the coverage was incomplete: there was no separate OSError test, the failure tests did not prove that evidence continued receiving subsequent chunks after live failure, and they did not prove that the failed live pipe received no later writes. Pytest also emitted one PytestCollectionWarning because the helper dataclass was named TestConfig. git diff --check and ASCII validation passed for the tracked production diff. Aider did not demonstrate the required final complete-file inspection, final diff review, ASCII check, changed-file verification, or exact final report, and its final summarization failed. The run is therefore recorded as a failed TASK-PY-004 end-to-end result. The production implementation itself was correct and minimally scoped, but the complete development-agent task was not accepted. The disposable worktree was not promoted to chatgpt or public.
+1. Survey established free/local candidates: Aider, Cline, Roo Code, Continue, OpenHands, and other suitable candidates discovered during evaluation.
+2. Run a common small qualification task from clean disposable worktrees.
+3. Select the practical framework configuration based on repository handling, tool reliability, validation support, control boundaries, and end-to-end task results.
+4. Evaluate local models within the selected framework and establish resource policy.
+5. Establish deterministic repository/branch/permission/release controls and independent compliance/testing review.
+6. Validate the accepted workflow against a low-risk real edge-repository task.
+7. Human acceptance is required before treating the environment as operational.
 
+This framework-first path replaces the previous plan of continuing an indefinite sequence of bespoke-runner model benchmarks. Historical benchmark evidence remains retained in edge-ai BENCHMARK.md.
 
-The subsequent Aider/qwen3:14b TASK-PY-004 run was completed from clean disposable edge-video baseline commit b1554cffb13b76cc6944c4cd92609e54b405adca. Independent inspection found that Aider modified app/media.py and created tests/test_media.py, but the end-to-end result failed acceptance. The production edit introduced live_active handling for startup failure, live-process exit, and BrokenPipeError/OSError, but also corrupted the recording format string from "h264" to "h26线", violating recording-format preservation and the ASCII-only source policy. The generated five-test suite failed all five tests under independent pytest execution. The tests did not validly prove evidence continuation after live failure, suppression of later writes to the failed live pipe, or normal-operation delivery to both branches. The complete Aider transcript was not retained, so no claims are made about its internal reasoning or the cause of the prolonged run. Independent GPU verification confirmed qwen3:14b was using the RTX 3060 at 24% CPU / 76% GPU, so GPU selection was not the cause of the failure. The disposable worktree was reset and cleaned to the exact baseline, and no benchmark implementation was promoted to chatgpt or public.
-
-Result: **Failed TASK-PY-004.** The run did not satisfy the required implementation, recording-format preservation, focused test coverage, and validation requirements. The result is recorded as an end-to-end Aider/qwen3:14b observation; no coding-agent model or role default is selected from it.
-
-### Next active increment
-
-The Ollama baseline and initial local model inventory are established, and Aider is the active coding-agent framework under evaluation. The immediate next action is continued controlled development-agent benchmarking from clean disposable worktrees.
-
-1. Continue representative repository-task benchmarking with Aider and the available local models.
-2. Use independent inspection and testing to validate every benchmark result.
-3. Evaluate repository comprehension, Python implementation, architecture preservation, focused testing, diff discipline, ASCII compliance, and accurate validation reporting.
-4. Evaluate additional candidates, including qwen3-coder:30b when appropriate for the workstation.
-5. Select model-to-role and resource policy only after sufficient representative evidence and independent review.
-6. Establish the independent rules/compliance and testing/review stages after the coding-agent framework/model evaluation is sufficiently mature.
-7. Validate the accepted development-agent workflow against the actual edge repositories.
-8. Document the resulting operating procedure.
-
-No failed benchmark implementation is to be repaired and promoted as a benchmark success. No benchmark implementation is to be promoted to `chatgpt` or `public` without the normal acceptance workflow.
+No failed benchmark implementation is to be repaired and promoted as a benchmark success. No benchmark implementation is to be promoted to chatgpt or public without the normal acceptance workflow.
 
 ### Still to establish
 
