@@ -139,7 +139,7 @@ Issue #3 / Increment C is therefore complete. Future work is tracked in Phase 5 
 
 ## Development-Agent / Local-AI State
 
-The local-AI environment is the active development increment. The coding-agent framework evaluation has now moved from the bespoke runner to Aider for substantive repository work.
+The local-AI environment is the active development increment. The coding-agent framework evaluation has moved from the bespoke runner to established repository-oriented frameworks.
 
 The immediate objective is not merely to benchmark individual models. It is to establish a practical local development agent that can continue the existing AI Legal Platform edge-platform work from the real repository and project state. The first capability target is reliable Python development with architecture-aware repository comprehension, testing/debugging, documentation discipline, and accurate validation reporting. Legal-AI workloads remain a later use of the same local AI environment.
 
@@ -183,7 +183,7 @@ ChatGPT Free is not treated as a free external API endpoint for local agents.
 
 The local-AI environment is the active development increment. The substantive evaluation is now framework-first: use an established free/local repository-oriented coding-agent framework before expanding bespoke infrastructure.
 
-Aider is the first established framework under active evaluation. No final framework or model default has been selected. Existing Aider/model benchmark results remain historical end-to-end evidence and are not an overall ranking.
+Aider was the first established framework evaluated, followed by Continue and OpenCode. Aider and Continue did not qualify from the common TASK-AIDER-001 end-to-end qualification; OpenCode + `gpt-oss:20b` passed. No final framework or model default has been selected. These results remain historical end-to-end evidence and are not an overall ranking.
 
 The immediate objective is to establish a practical local development agent that can continue the existing AI Legal Platform edge-platform work from the real repository and project state. The workflow must preserve architecture, evidence and temporal models, service boundaries, documentation ownership, project intent, and the chatgpt -> ADO -> public release boundary.
 
@@ -204,11 +204,14 @@ The role separation remains:
 
 1. Survey established free/local candidates: Aider, Cline, Roo Code, Continue, OpenHands, and other suitable candidates discovered during evaluation.
 2. Run a common small qualification task from clean disposable worktrees.
-3. Select the practical framework configuration based on repository handling, tool reliability, validation support, control boundaries, and end-to-end task results.
-4. Evaluate local models within the selected framework and establish resource policy.
-5. Establish deterministic repository/branch/permission/release controls and independent compliance/testing review.
-6. Validate the accepted workflow against a low-risk real edge-repository task.
-7. Human acceptance is required before treating the environment as operational.
+3. Record the complete end-to-end result and independently inspect the worktree before considering a framework qualified.
+4. Select the practical framework configuration based on repository handling, tool reliability, validation support, control boundaries, and end-to-end task results.
+5. Evaluate local models within the selected framework and establish resource policy.
+6. Establish deterministic repository/branch/permission/release controls and independent compliance/testing review.
+7. Validate the accepted workflow against a low-risk real edge-repository task.
+8. Human acceptance is required before treating the environment as operational.
+
+The common TASK-AIDER-001 qualification has now been completed with Aider, Continue, and OpenCode using `gpt-oss:20b`. OpenCode + `gpt-oss:20b` passed; Aider and Continue did not. The OpenCode result is qualification evidence for that tested configuration, not final framework or model selection. Independent review, deterministic controls, low-risk real-repository validation, and human acceptance remain required.
 
 This framework-first path replaces the previous plan of continuing an indefinite sequence of bespoke-runner model benchmarks. Historical benchmark evidence remains retained in edge-ai BENCHMARK.md.
 
