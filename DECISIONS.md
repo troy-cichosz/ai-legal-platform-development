@@ -144,7 +144,17 @@ Framework selection precedes model optimization. Local models are evaluated as p
 
 Deterministic repository, branch, permission, and release controls must enforce hard boundaries. The coding model is not the sole authority for project-rule compliance or acceptance. Independent testing/compliance review and human acceptance remain required.
 
-The initial framework discovery set includes Aider, Cline, Roo Code, Continue, and OpenHands. Aider is the first active framework evaluation, not a final selection. When using Aider for tasks that prohibit agent-created commits, its no-auto-commits configuration must be used.
+The initial framework discovery set includes Aider, Cline, Roo Code, Continue, OpenHands, and OpenCode. Aider was the first active framework evaluation, followed by Continue and OpenCode. When using Aider for tasks that prohibit agent-created commits, its no-auto-commits configuration must be used.
+
+## D-017 - Do Not Select a Framework From Partial Qualification Evidence
+
+**Status:** Accepted
+
+A coding-agent framework is not selected for the local development workflow unless it passes the common end-to-end qualification requirements from a clean disposable worktree. The qualification must include repository inspection, scoped implementation, focused testing, preservation of unrelated content, ASCII compliance, required validation, Git/branch boundary behavior, and accurate reporting.
+
+Aider, Continue, and OpenCode have been evaluated with `gpt-oss:20b` using the common TASK-AIDER-001 qualification. Aider and Continue did not pass; OpenCode + `gpt-oss:20b` passed. These results remain end-to-end observations of the tested framework/model configurations and do not establish universal claims about the frameworks or model.
+
+A passed qualification is evidence for the tested framework/model configuration, but the local coding-agent default still requires the remaining documented controls, independent review, low-risk real-repository validation, and human acceptance.
 
 ## Source-Controlled Text Encoding
 
