@@ -152,7 +152,7 @@ The initial framework discovery set includes Aider, Cline, Roo Code, Continue, O
 
 A coding-agent framework is not selected for the local development workflow unless it passes the common end-to-end qualification requirements from a clean disposable worktree. The qualification must include repository inspection, scoped implementation, focused testing, preservation of unrelated content, ASCII compliance, required validation, Git/branch boundary behavior, and accurate reporting.
 
-Aider, Continue, and OpenCode have been evaluated with `gpt-oss:20b` using the common TASK-AIDER-001 qualification. Aider and Continue did not pass; OpenCode + `gpt-oss:20b` passed. These results remain end-to-end observations of the tested framework/model configurations and do not establish universal claims about the frameworks or model.
+Aider, Continue, and OpenCode have been evaluated with `gpt-oss:20b` using the common TASK-AIDER-001 qualification, and OpenCode + `gpt-oss:20b` was additionally tested with TASK-PY-005. Aider and Continue did not pass TASK-AIDER-001. OpenCode passed TASK-AIDER-001 but did not pass TASK-PY-005 because the focused test did not demonstrate preservation of an actual temporal context and the completion report misstated repository state. These results remain end-to-end observations of the tested framework/model configurations and do not establish universal claims about the frameworks or model.
 
 A passed qualification is evidence for the tested framework/model configuration, but the local coding-agent default still requires the remaining documented controls, independent review, low-risk real-repository validation, and human acceptance.
 
