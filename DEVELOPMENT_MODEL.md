@@ -63,13 +63,13 @@ The model must preserve human control over architectural decisions and operation
 
 Use an established free/open-source repository-oriented coding-agent framework before building equivalent bespoke infrastructure when the framework can satisfy the required workflow. Framework selection comes before model optimization.
 
-The first established framework under evaluation is Aider with local Ollama inference. Aider is not presumed to be the final framework; the environment should also consider established local candidates such as Cline, Roo Code, Continue, and OpenHands against the project constraints before finalizing the framework.
+Aider was the first established framework evaluated with local Ollama inference, followed by Continue and OpenCode using the common TASK-AIDER-001 qualification. Aider and Continue did not qualify; OpenCode + `gpt-oss:20b` passed the common qualification. The environment should continue evaluating established local candidates such as Cline, Roo Code, and OpenHands before finalizing the framework.
 
-Evaluate the framework as an end-to-end development-agent configuration with the local model. Acceptance requires correct implementation, focused tests, preservation of unrelated content, scoped changes, required validation, documentation accuracy, ASCII compliance, controllable permissions, and accurate reporting.
+Evaluate each framework as an end-to-end development-agent configuration with the local model. Acceptance requires correct implementation, focused tests, preservation of unrelated content, scoped changes, required validation, documentation accuracy, ASCII compliance, controllable permissions, and accurate reporting.
 
 The model and framework do not need to self-enforce every project rule. Deterministic controls must enforce hard repository, branch, permission, and release boundaries, while independent compliance/testing review checks the result. For Aider, tasks that prohibit agent-created commits must use its no-auto-commits configuration rather than relying only on natural-language instructions.
 
-Failed benchmark worktrees are disposable evidence and must not be repaired and promoted as benchmark successes. Human acceptance remains required.
+Failed benchmark worktrees are disposable evidence and must not be repaired and promoted as benchmark successes. A passed qualification establishes qualification evidence for the tested framework/model configuration, but does not by itself establish a final framework or model default. Human acceptance remains required.
 
 ## Local Agent + AI Boundary
 
