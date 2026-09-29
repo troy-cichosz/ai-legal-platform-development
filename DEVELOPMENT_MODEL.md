@@ -189,6 +189,14 @@ Each issue should identify:
 
 Avoid broad refactoring during a focused increment unless the issue explicitly establishes that scope.
 
+### Commit Consolidation
+
+Related changes belonging to the same development increment should be consolidated into a single Git commit per repository whenever practical. Do not create separate commits merely because individual files or individual corrections were completed at different points during the same increment. Complete the related changes, inspect the resulting repository state and complete diff, then create one commit and push it through the normal `chatgpt` workflow.
+
+Separate commits are appropriate when changes are genuinely independent, require separate review or rollback boundaries, or when the repository workflow explicitly requires them.
+
+This rule is intended to minimize unnecessary GitHub `chatgpt` push events and therefore unnecessary overlapping ADO synchronization and downstream pipeline runs.
+
 ## CI/CD Design Principles
 
 The migration deliberately preserves the existing service CI/CD.
@@ -204,6 +212,12 @@ The migration deliberately preserves the existing service CI/CD.
 9. ADO mirror history is not authoritative.
 10. Only `chatgpt` events are accepted by the synchronization automation, providing the recursion boundary for `edge-platform-automation`.
 11. The long-term `chatgpt` -> `public` promotion mechanism remains a separate process concern.
+
+### Commit/Pipeline Discipline
+
+The normal development workflow should minimize successive `chatgpt` pushes. A related repository increment should normally produce one GitHub `chatgpt` push and therefore one corresponding automation synchronization cycle. Do not intentionally generate multiple rapid commits for a single increment.
+
+If genuinely independent increments must be processed separately, allow the corresponding automation and downstream pipeline activity to settle before starting another dependent increment.
 
 ## Documentation
 
