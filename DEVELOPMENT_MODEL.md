@@ -63,7 +63,7 @@ The model must preserve human control over architectural decisions and operation
 
 Use an established free/open-source repository-oriented coding-agent framework before building equivalent bespoke infrastructure when the framework can satisfy the required workflow. Framework selection comes before model optimization.
 
-Aider was the first established framework evaluated with local Ollama inference, followed by Continue and OpenCode using the common TASK-AIDER-001 qualification. Aider and Continue did not qualify; OpenCode + `gpt-oss:20b` passed the common qualification. The environment should continue evaluating established local candidates such as Cline, Roo Code, and OpenHands before finalizing the framework.
+Aider was the first established framework evaluated with local Ollama inference, followed by Continue and OpenCode. Aider and Continue did not qualify from the common TASK-AIDER-001 qualification. OpenCode + `gpt-oss:20b` passed TASK-AIDER-001 but failed TASK-PY-005 because its focused test did not demonstrate preservation of an actual temporal context and its completion report misstated the repository state. The environment should continue evaluating established local candidates such as Cline, Roo Code, and OpenHands before finalizing the framework.
 
 Evaluate each framework as an end-to-end development-agent configuration with the local model. Acceptance requires correct implementation, focused tests, preservation of unrelated content, scoped changes, required validation, documentation accuracy, ASCII compliance, controllable permissions, and accurate reporting.
 
