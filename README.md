@@ -51,6 +51,22 @@ The local AI environment is intended to serve both this development-process repo
 
 The local coding model must be capable of repository-scale implementation suitable for this project while preserving established architecture and working behavior. Broad unsolicited rewrites are not acceptable. Independent rules/compliance review is a required control so correctness does not depend solely on the coding model following its own instructions.
 
+## Development-Agent Qualification
+
+The local development-agent effort is qualified as a complete configuration rather than as a model-selection exercise. Framework/tool qualification precedes model optimization.
+
+The required sequence is:
+
+1. qualify an established free/open-source repository-oriented agent framework;
+2. qualify repository, filesystem, tool, permission, and write boundaries;
+3. run a minimal controlled repository task;
+4. validate representative Python and multi-file work;
+5. evaluate local models within the qualified framework;
+6. validate cross-repository and project-state continuation;
+7. run independent compliance/testing review;
+8. establish the normal operating procedure.
+
+The coding agent's own report is not authoritative proof of repository state. Actual Git/filesystem state, tests, diff inspection, and independent review determine acceptance.
 ## Established Repository Rules
 
 Across the platform repositories:

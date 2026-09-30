@@ -156,6 +156,21 @@ Aider, Continue, and OpenCode have been evaluated with `gpt-oss:20b` using the c
 
 A passed qualification is evidence for the tested framework/model configuration, but the local coding-agent default still requires the remaining documented controls, independent review, low-risk real-repository validation, and human acceptance.
 
+## D-018 - Development-Agent Qualification Is Framework-First
+
+**Status:** Accepted
+
+The local development-agent qualification unit is the complete configuration of agent framework, local model, repository rules, tool permissions, repository/worktree boundary, and independent validation.
+
+Framework and tool-boundary qualification precedes model optimization. A model is not selected as a coding-agent default based on isolated generation quality, model size, or runtime speed.
+
+## D-019 - Agent Self-Validation Is Not Acceptance
+
+**Status:** Accepted
+
+A coding agent's own report and self-tests are evidence only. Actual repository state, Git diff, tests, ASCII/encoding checks, independent compliance/review, and human acceptance determine whether a development increment is accepted.
+
+Deterministic repository, branch, permission, and release boundaries should be enforced where practical so that hard project rules do not depend solely on model instruction following.
 ## Source-Controlled Text Encoding
 
 All source-controlled text files must contain ASCII characters only. Non-ASCII Unicode characters, Unicode punctuation, Unicode symbols, and emojis are prohibited. Agents and development tooling must use deterministic UTF-8 handling when reading and writing files and must verify that source-controlled text remains ASCII-only before commit.

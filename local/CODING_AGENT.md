@@ -21,6 +21,17 @@ The candidate workflow should support:
 - no mandatory paid hosted service;
 - local Ollama compatibility where practical.
 
+## Qualification Unit
+
+Evaluate the complete configuration:
+
+```text
+Agent Framework + Local Model + Repository Rules
++ Tool Permissions + Repository/Worktree Boundary
++ Independent Validation
+```
+
+Framework qualification precedes model optimization. Do not select a model based only on isolated coding output or raw runtime performance.
 ## Evaluation Criteria
 
 Evaluate by documented behavior rather than popularity:
@@ -40,6 +51,11 @@ Evaluate by documented behavior rather than popularity:
 13. Ability to consume durable project rules and handoff artifacts.
 14. Compatibility with an independent rules/compliance agent.
 15. Reusability across the development-process repository and actual edge repositories.
+16. Structured tool execution and reliable tool-result handling.
+17. Adherence to configured write, command, and repository permissions.
+18. Preservation of exact unrelated file content and encoding.
+19. Accurate reporting of actual final Git/filesystem state.
+20. Compatibility with independent repository validation and compliance review.
 
 No agent is selected by this document.
 

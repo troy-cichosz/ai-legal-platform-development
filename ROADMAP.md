@@ -44,6 +44,22 @@
 
 **Status:** NEXT ACTIVE INCREMENT
 
+### Phase 3 Execution Order
+
+The active Phase 3 validation sequence is intentionally ordered to establish the development-agent control boundary before spending additional time comparing models:
+
+1. Qualify an established free/open-source repository-oriented agent framework.
+2. Qualify repository, filesystem, tool, permission, and write boundaries.
+3. Run a minimal controlled repository write-boundary task.
+4. Validate representative Python implementation.
+5. Validate multi-file edge-service work.
+6. Validate cross-repository work.
+7. Validate documentation and project-state continuation.
+8. Run independent rules/compliance and testing/review.
+9. Confirm human acceptance as the release boundary.
+10. Document the resulting operating procedure.
+
+Model benchmarking occurs inside the qualified framework rather than before framework qualification.
 ### Architecture and governance
 
 - [ ] Define the reusable local multi-agent architecture.

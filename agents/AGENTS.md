@@ -31,6 +31,15 @@
 - Use host-addressed HTTP for cross-service communication.
 - Do not route evidence capture through `edge-controller`.
 
+## Agent Framework and Tool Boundary
+
+The coding agent operates through a qualified repository-oriented framework. The framework/tool layer is part of the development control boundary and must not be treated as interchangeable with the model.
+
+Before editing, the framework must establish actual repository state, applicable instructions, branch state, and task scope. Tool permissions and repository/worktree scope must be constrained to the approved task where practical.
+
+During controlled qualification tasks, any unauthorized file creation, unrelated modification, commit, branch change, or generated verification artifact is a failed result unless the task explicitly requires it.
+
+The coding agent's description of its actions never overrides actual repository state.
 ## Verification
 
 At minimum, report:

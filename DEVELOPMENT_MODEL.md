@@ -71,6 +71,33 @@ The model and framework do not need to self-enforce every project rule. Determin
 
 Failed benchmark worktrees are disposable evidence and must not be repaired and promoted as benchmark successes. A passed qualification establishes qualification evidence for the tested framework/model configuration, but does not by itself establish a final framework or model default. Human acceptance remains required.
 
+## Development-Agent Qualification Boundary
+
+The qualified unit is:
+
+```text
+Agent Framework + Local Model + Repository Rules
++ Tool Permissions + Repository/Worktree Boundary
++ Independent Validation
+```
+
+Framework selection precedes model optimization. A model is not accepted as a coding-agent default from isolated generation tests or runtime performance alone.
+
+The framework must expose or enforce the repository and tool boundaries required by the task. Deterministic controls should enforce hard repository, branch, permission, and release boundaries where practical. The coding agent's own validation is informational; independent repository validation remains required.
+
+The qualification sequence is:
+
+1. framework qualification;
+2. tool/permission/write-boundary qualification;
+3. minimal controlled repository task;
+4. Python single-file implementation;
+5. multi-file edge-service task;
+6. cross-service task;
+7. documentation/project-state continuation;
+8. independent compliance/testing;
+9. human acceptance.
+
+Failed disposable worktrees remain evidence and are not repaired and promoted as benchmark successes.
 ## Local Agent + AI Boundary
 
 The local workstation is the implementation environment.

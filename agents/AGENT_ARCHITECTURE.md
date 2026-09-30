@@ -21,6 +21,35 @@ The base environment must operate at **$0 incremental AI cost**.
 - The workflow does not require paid OpenAI API usage.
 - The workflow does not require a paid hosted coding-agent subscription.
 
+## Agent Configuration Boundary
+
+The implementation path is:
+
+```text
+Human / ChatGPT
+      |
+      v
+Task / Issue
+      |
+      v
+Qualified Agent Framework
+      |
+      +--> repository rules
+      +--> scoped tools
+      +--> permission boundary
+      +--> repository/worktree boundary
+      |
+      v
+Local Ollama Model
+      |
+      v
+Repository changes
+      |
+      v
+Independent validation
+```
+
+The framework and model are replaceable components. The model is not the sole enforcement mechanism for repository or project rules.
 ## Roles
 
 ### Human
@@ -100,15 +129,16 @@ The environment owns the development process. Each platform repository remains a
 
 Before the local environment becomes the normal development path:
 
-1. Install and validate Ollama.
-2. Select a candidate coding model.
-3. Select supporting review/compliance model(s).
-4. Validate repository instruction discovery.
-5. Execute a small real repository task.
-6. Run independent compliance review.
-7. Review the diff for unwanted scope expansion.
-8. Verify tests and limitations.
-9. Commit to `chatgpt`.
-10. Confirm GitHub -> ADO automation remains unchanged and functional.
-11. Repeat against an actual edge repository.
-12. Document the operating procedure and model/resource policy.
+1. Validate the Ollama installation and local model inventory.
+2. Qualify an established repository-oriented agent framework.
+3. Qualify repository, tool, permission, and write boundaries.
+4. Execute a minimal controlled repository task.
+5. Validate representative Python implementation.
+6. Validate multi-file and cross-repository work.
+7. Run independent compliance and testing/review.
+8. Review actual Git/filesystem state for unwanted scope expansion.
+9. Verify tests, encoding, limitations, and unresolved behavior.
+10. Commit only through the approved `chatgpt` workflow.
+11. Confirm GitHub -> ADO automation remains unchanged and functional.
+12. Repeat against an actual edge repository.
+13. Document the operating procedure and model/resource policy.
