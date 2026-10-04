@@ -257,3 +257,19 @@ At the beginning of a new development increment:
 7. Update this control plane when the process state materially changes.
 
 This file is the primary recovery point for this development-process effort.
+
+### TASK-AGENT-006 Planning Checkpoint - 2026-10-04
+
+TASK-AGENT-006 planning has completed as a planning-only local development-agent qualification. The planner inspected the disposable edge-video worktree and a supplied read-only snapshot of the edge-audio worktree, with no implementation promotion.
+
+The planner successfully produced a repository-specific plan for a future common evidence-model and manifest integration across edge-video and edge-audio. It preserved the existing evidence, temporal, service-boundary, and immutability requirements and explicitly distinguished verified facts from recommendations and unavailable information.
+
+The planner identified several decisions that must be resolved before implementation: the authoritative location/content of the common evidence contract, the required versus optional Capture Time Context fields, common-envelope versus service-specific manifest layering, audio versus video envelope persistence strategy, temporal-unavailability representation, and whether audio metadata atomicity is part of scope.
+
+The initial planner attempt was correctly stopped when OpenCode denied access to the sibling edge-audio qualification worktree. A read-only inspection snapshot was then supplied inside the primary qualification worktree, and the planner was relaunched without broader access. This was a tooling/permission-boundary finding, not an implementation failure.
+
+Result: **TASK-AGENT-006 planning PASS / QUALIFIED; implementation not approved.**
+
+The immediate next step is **TASK-AGENT-006 independent review**. The reviewer must independently validate the plan against actual available repository evidence before any implementation work is authorized.
+
+The authoritative recovery points remain this file and edge-ai/BENCHMARK.md.
