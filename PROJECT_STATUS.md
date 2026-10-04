@@ -217,6 +217,21 @@ This framework-first path replaces the previous plan of continuing an indefinite
 
 No failed benchmark implementation is to be repaired and promoted as a benchmark success. No benchmark implementation is to be promoted to chatgpt or public without the normal acceptance workflow.
 
+### Current Development-Agent Qualification Checkpoint - 2026-10-04
+
+The local development-agent qualification has now completed four additional controlled OpenCode tasks against disposable worktrees without promoting benchmark implementations to the authoritative repositories:
+
+- **TASK-AGENT-002:** Passed with OpenCode + qwen3-coder:30b for a narrowly scoped Python implementation.
+- **TASK-AGENT-003:** Passed with OpenCode + qwen3-coder:30b for a multi-file Python implementation and focused tests.
+- **TASK-AGENT-004:** Passed / qualified as a controlled cross-service Capture Time Context contract task. Independent pristine-baseline testing subsequently confirmed that all five edge-time failures observed during the run were pre-existing. The agent's initial attribution lacked baseline evidence, so this remains a reporting-process caveat.
+- **TASK-AGENT-005:** Passed as a repository-continuation/state-accuracy task. OpenCode made only the authorized `tests/test_evidence.py` change, passed the focused and complete edge-video tests, inspected the diff, and preserved the disposable Git boundary. A minor reporting overclaim about the prior existence of `.pytest_cache` was identified.
+
+These results strengthen the evidence that the tested OpenCode configurations can perform scoped repository work, multi-file changes, cross-service contract work, continuation from existing project state, testing, diff inspection, and explicit verified/unverified reporting. They do not establish a final model or framework selection.
+
+The next qualification stage is **TASK-AGENT-006: controlled planning and independent review**, with no implementation promotion. It is intended to test whether the local workflow can separate planning from implementation and independently verify compliance, scope, architecture, and validation claims before any change is accepted.
+
+The authoritative recovery point remains this file plus `edge-ai/BENCHMARK.md`. The next chat should begin by reading this current project status, `edge-ai/BENCHMARK.md`, and the applicable repository rules before continuing TASK-AGENT-006.
+
 ### Still to establish
 
 - model-to-role/resource policy;
