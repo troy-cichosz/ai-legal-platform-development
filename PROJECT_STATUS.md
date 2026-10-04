@@ -273,3 +273,39 @@ Result: **TASK-AGENT-006 planning PASS / QUALIFIED; implementation not approved.
 The immediate next step is **TASK-AGENT-006 independent review**. The reviewer must independently validate the plan against actual available repository evidence before any implementation work is authorized.
 
 The authoritative recovery points remain this file and edge-ai/BENCHMARK.md.
+
+### TASK-AGENT-006 Independent Review Checkpoint - 2026-10-04
+
+The independent review of TASK-AGENT-006 planning has completed against the actual disposable edge-video worktree and the supplied read-only edge-audio inspection snapshot.
+
+The review was substantively valid. An attempted raw GitHub retrieval of the plan returned HTTP 404, but `PLAN-AGENT-006.md` was already present at the root of the qualification worktree and the reviewer successfully read it. The expected prompted path had been `benchmark-inputs\\PLAN-AGENT-006.md`; the actual plan artifact available to the reviewer was at the worktree root. This path discrepancy is recorded as a process caveat.
+
+The reviewer independently verified the planner's repository-specific findings, including the edge-video baseline, the existing but currently unused video evidence-envelope builder, the differing Capture Time Context validation requirements, audio temporal-unavailability handling, the absence of audio `integrity` and `temporal_provenance` fields, existing schema identifiers, and the controller/time-service boundary. The reviewer also confirmed that unavailable information was identified rather than invented.
+
+One material planner overstatement was corrected: the plan stated that both services already emit `ai-legal.evidence.envelope.v1` envelopes. The inspected edge-video implementation contains `build_evidence_envelope()`, but that builder is not currently invoked for runtime persistence. The corrected plan must preserve that distinction.
+
+**Independent-review disposition: APPROVE WITH REQUIRED PLAN CORRECTIONS — NOT READY FOR IMMEDIATE IMPLEMENTATION.**
+
+The reviewer identified nine blockers/decisions that must be resolved before implementation:
+
+1. canonical temporal-unavailable representation;
+2. required versus optional Capture Time Context fields;
+3. envelope persistence strategy (embedded versus sidecar);
+4. controlled `time_semantics` vocabulary;
+5. envelope v1 versioning/compatibility strategy;
+6. authoritative location of the common contract;
+7. intentionality of the current video envelope-builder deferral;
+8. exact scope of audio metadata atomicity;
+9. semantics of `capture.end`.
+
+Required test-plan corrections include:
+
+- a test proving manifest-byte preservation when an envelope sidecar is added;
+- durability/failure testing for manifest and envelope writes, including both-or-neither semantics where applicable;
+- cross-service compatibility tests based on a shared contract validator with per-service fixtures rather than sibling-service readers.
+
+The reviewer verified that the qualification boundary remained intact: the detached baseline HEAD was unchanged, no implementation repository files were modified, no commit/push/branch mutation occurred, and only the review artifact was created.
+
+Result: **TASK-AGENT-006 planning/review PASS as a qualification capability, with required plan corrections; implementation remains blocked.** No model, framework, or service implementation has been selected or promoted as a result.
+
+The next step is explicit architectural/contract decision resolution and correction of the plan. No service repository, `edge-ai/DECISIONS.md`, or GitHub `public` branch should be modified for this checkpoint.
