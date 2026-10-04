@@ -63,7 +63,7 @@ The model must preserve human control over architectural decisions and operation
 
 Use an established free/open-source repository-oriented coding-agent framework before building equivalent bespoke infrastructure when the framework can satisfy the required workflow. Framework selection comes before model optimization.
 
-Aider was the first established framework evaluated with local Ollama inference, followed by Continue and OpenCode. Aider and Continue did not qualify from the common TASK-AIDER-001 qualification. OpenCode + `gpt-oss:20b` passed TASK-AIDER-001 but failed TASK-PY-005 because its focused test did not demonstrate preservation of an actual temporal context and its completion report misstated the repository state. OpenCode + `gpt-oss:20b` also failed TASK-PY-003 because the corrected run materialized only a partial production change (`self.live_process = None` after live-process exit and BrokenPipeError/OSError) and did not produce the required focused tests or demonstrate the required live-failure disable and authoritative-evidence continuation behavior. The agent also did not complete the required validation/reporting. The environment should continue evaluating established local candidates such as Cline, Roo Code, and OpenHands before finalizing the framework.
+Aider was the first established framework evaluated with local Ollama inference, followed by Continue and OpenCode. Aider and Continue did not qualify from the common TASK-AIDER-001 qualification. OpenCode + `gpt-oss:20b` passed TASK-AIDER-001 but failed TASK-PY-005 because its focused test did not demonstrate preservation of an actual temporal context and its completion report misstated the repository state. OpenCode + `gpt-oss:20b` also failed TASK-PY-003 because the corrected run materialized only a partial production change (`self.live_process = None` after live-process exit and BrokenPipeError/OSError) and did not produce the required focused tests or demonstrate the required live-failure disable and authoritative-evidence continuation behavior. The agent also did not complete the required validation/reporting. The environment should continue evaluating established local candidates such as Cline, Roo Code, and OpenHands before finalizing the framework. The TASK-AGENT-006 implementation qualification also demonstrated that successful narrow coding tasks are not sufficient evidence of autonomous repository execution: the tested OpenCode + qwen3-coder:30b configuration repeatedly encountered unavailable-tool and PowerShell command-use errors and stopped before implementation. This configuration therefore remains unqualified for autonomous repository-scale continuation despite earlier passing controlled tasks.
 
 Evaluate each framework as an end-to-end development-agent configuration with the local model. Acceptance requires correct implementation, focused tests, preservation of unrelated content, scoped changes, required validation, documentation accuracy, ASCII compliance, controllable permissions, and accurate reporting.
 
@@ -261,3 +261,17 @@ Distinguish:
 - future/deferred.
 
 The process repository records the development workflow. The owning platform repository records service behavior and verified service state.
+
+## TASK-AGENT-006 Implementation Qualification - 2026-10-04
+
+The corrected TASK-AGENT-006 plan passed independent review before implementation was authorized. The subsequent implementation qualification used OpenCode 2.0.19 with local Ollama 0.34.4 and `qwen3-coder:30b` in disposable edge-video/edge-audio worktrees.
+
+The edge-video implementation run failed to complete the task. The agent established the correct disposable baseline and clean Git state and inspected relevant repository files, but repeatedly attempted unavailable tools and incompatible shell syntax, including invented repository-read tool calls, unavailable search/tool names, and Unix `ls -la` usage under Windows PowerShell. It recovered from individual command failures but entered repeated inspection loops and stopped without making the authorized implementation changes or completing the required tests and validation.
+
+No implementation from this qualification was promoted. The real edge-video checkout, edge-audio checkout, authoritative GitHub `chatgpt` source repositories, GitHub `public` branches, and ADO repositories were not modified by the failed qualification.
+
+An earlier run that displayed the hosted `Fledge Alpha Free` OpenCode model was invalid benchmark evidence and is not counted. The valid implementation qualification used the local Ollama model.
+
+This result reinforces the development-agent qualification boundary: framework/model/tool execution behavior is part of the qualification, and repeated tool-use failures or inability to complete the required repository workflow are qualification failures even when the same model/configuration has passed narrower tasks.
+
+The next framework evaluation should use the same evidence-first qualification discipline rather than adding further manual prompts to repair this failed run.

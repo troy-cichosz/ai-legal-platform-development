@@ -3,7 +3,7 @@
 **Repository:** `ai-legal-platform-development`  
 **Current phase:** Phase 3 - Local Multi-Agent AI Development Environment  
 **Status:** Phase 4 automation complete; local multi-agent environment is the active next increment  
-**Last reviewed:** September 28, 2026
+**Last reviewed:** October 4, 2026
 
 ## Authoritative Sources
 
@@ -309,3 +309,19 @@ The reviewer verified that the qualification boundary remained intact: the detac
 Result: **TASK-AGENT-006 planning/review PASS as a qualification capability, with required plan corrections; implementation remains blocked.** No model, framework, or service implementation has been selected or promoted as a result.
 
 The next step is explicit architectural/contract decision resolution and correction of the plan. No service repository, `edge-ai/DECISIONS.md`, or GitHub `public` branch should be modified for this checkpoint.
+
+### TASK-AGENT-006 Implementation Qualification Checkpoint - 2026-10-04
+
+The corrected TASK-AGENT-006 plan and normative Evidence Envelope v1 contract passed independent review and implementation was then authorized in disposable worktrees.
+
+The implementation qualification was run with OpenCode 2.0.19, local Ollama 0.34.4, and `qwen3-coder:30b`. The edge-video run used disposable baseline `b1554cffb13b76cc6944c4cd92609e54b405adca`.
+
+The local inference path was verified before execution: OpenCode resolved to Ollama at `http://localhost:11434/v1` with `qwen3-coder:30b`, and direct Ollama checks confirmed the model was available. An earlier invocation that displayed the hosted `Fledge Alpha Free` model was stopped and is invalid benchmark evidence.
+
+The valid edge-video implementation run did not complete implementation. The agent correctly established the detached baseline and clean worktree and inspected relevant files, but repeatedly attempted unavailable or invented tools and incompatible Unix shell syntax under Windows PowerShell. It recovered from individual failures but remained in repeated inspection/tool-use loops and stopped without making source/test changes or running the required implementation validation.
+
+Qualification result: **FAIL for the tested OpenCode 2.0.19 + Ollama 0.34.4 + qwen3-coder:30b configuration.** This is an end-to-end agent execution/tool-use failure, not a universal judgment about qwen3-coder:30b or OpenCode. Earlier TASK-AGENT-002 through TASK-AGENT-005 results remain valid observations and are not overturned by this failure.
+
+The disposable qualification worktree remained isolated. No service implementation, authoritative `chatgpt` source, `public` branch, or ADO repository was modified or promoted as a result.
+
+The TASK-AGENT-006 architecture/contract work remains planned and approved for implementation by its independent review, but **no implementation is currently accepted or deployed**. The next development-agent step is to evaluate the next established local framework using the same controlled qualification boundary rather than manually steering this failed run further.
