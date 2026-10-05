@@ -275,3 +275,17 @@ An earlier run that displayed the hosted `Fledge Alpha Free` OpenCode model was 
 This result reinforces the development-agent qualification boundary: framework/model/tool execution behavior is part of the qualification, and repeated tool-use failures or inability to complete the required repository workflow are qualification failures even when the same model/configuration has passed narrower tasks.
 
 The next framework evaluation should use the same evidence-first qualification discipline rather than adding further manual prompts to repair this failed run.
+
+### TASK-AGENT-006 Implementation Qualification - Cline - 2026-10-05
+
+Cline was tested against the same approved TASK-AGENT-006 implementation qualification using fresh disposable edge-video and edge-audio worktrees and the exact service baselines.
+
+The local runtime was independently verified as Ollama with `qwen3-coder:30b`; Cline's conflicting self-reported model label was treated as unreliable metadata. Auto-approval was limited to Read and Edit.
+
+The implementation qualification failed before implementation. Cline repeatedly operated from the edge-audio worktree while the active qualification step required edge-video, attempted to access the sibling edge-video worktree, and repeatedly used incompatible CMD/Unix command syntax under Windows PowerShell. The run was stopped rather than manually steered. Independent Git status checks confirmed the edge-audio Cline worktree remained clean at baseline `d24188f8ed6525c4a03a1b7a9a1ae7dd120a2dd9`.
+
+Result: **FAIL for the tested Cline configuration.** This is an agent execution/workspace-boundary failure, not a code-quality finding and not a universal judgment about Cline or `qwen3-coder:30b`.
+
+OpenCode and Cline TASK-AGENT-006 implementation failures are retained as independent framework evidence. No failed implementation is to be repaired and promoted. The next candidate is **OpenHands**, using the same common qualification task and disposable-worktree boundary.
+
+Roo Code is removed from the candidate sequence because Roo Code was shut down and its repository archived on 2026-05-15; it is not a viable framework to qualify in the current 2026-10 evaluation.
