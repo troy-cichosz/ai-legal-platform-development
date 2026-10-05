@@ -325,3 +325,15 @@ Qualification result: **FAIL for the tested OpenCode 2.0.19 + Ollama 0.34.4 + qw
 The disposable qualification worktree remained isolated. No service implementation, authoritative `chatgpt` source, `public` branch, or ADO repository was modified or promoted as a result.
 
 The TASK-AGENT-006 architecture/contract work remains planned and approved for implementation by its independent review, but **no implementation is currently accepted or deployed**. The next development-agent step is to evaluate the next established local framework using the same controlled qualification boundary rather than manually steering this failed run further.
+
+### TASK-AGENT-006 Cline Implementation Qualification Checkpoint - 2026-10-05
+
+Cline implementation qualification was attempted after the corrected TASK-AGENT-006 plan and Evidence Envelope v1 contract had passed independent review. The test used disposable edge-video and edge-audio worktrees with the exact approved baselines and local Ollama/qwen3-coder:30b.
+
+The local model runtime was independently confirmed through Ollama. The Cline self-reported model name was inconsistent with the observed Ollama process and was not treated as authoritative. The configured Auto Approval boundary was limited to Read and Edit.
+
+The qualification failed before implementation. Cline repeatedly operated from the edge-audio qualification worktree while the active implementation step required edge-video, attempted to access the sibling edge-video worktree, and repeatedly used incompatible CMD/Unix syntax in Windows PowerShell. The run was stopped rather than manually steered. Independent Git status checks confirmed the edge-audio Cline worktree remained clean at baseline `d24188f8ed6525c4a03a1b7a9a1ae7dd120a2dd9` and no implementation was accepted.
+
+**Qualification result: FAIL for the tested Cline configuration.** This is an agent execution/workspace-boundary failure, not a code-quality finding. No authoritative `chatgpt` or `public` repository state was modified or promoted.
+
+The TASK-AGENT-006 architecture/contract remains approved for implementation qualification. The next framework candidate is OpenHands. Roo Code is not being evaluated because the project was shut down and its repository archived on 2026-05-15.
